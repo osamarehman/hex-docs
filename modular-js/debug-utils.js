@@ -1,5 +1,5 @@
 // Debug utilities
-let debugLevel = 0;
+let debugLevel = 1;
 
 export const debugUtils = {
     setLevel(level) {
