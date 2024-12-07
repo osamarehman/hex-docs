@@ -7,13 +7,21 @@ import { resetFormValues, prefillFormFields } from './form-handler.js';
 
 export const handleAddressInput = debounce(async function () {
     const address = document.getElementById("addressInput").value.trim();
+    debugUtils.info("Address", "Address input changed", { value: address });
+    
     if (address.length === 0) {
+        debugUtils.info("Address", "Empty address, skipping fetch");
         return;
     }
+    
     try {
-        const possibleAddresses = await fetchDataGet(
-            `${API_ENDPOINTS.possibleAddress}?address=${encodeURIComponent(address)}`
-        );
+        debugUtils.info("Address", "Fetching possible addresses", { address });
+        const url = `${API_ENDPOINTS.possibleAddress}?address=${encodeURIComponent(address)}`;
+        debugUtils.info("Address", "API request", { url });
+        
+        const possibleAddresses = await fetchDataGet(url);
+        debugUtils.info("Address", "Received possible addresses", { count: possibleAddresses.length });
+        
         updateDropdown(possibleAddresses);
         resetFormValues();
     } catch (error) {
@@ -67,9 +75,20 @@ export async function handleAddressSelection(eingangId) {
 
 export function updateDropdown(possibleAddresses) {
     const dropdown = document.getElementById("myDropdown");
+    debugUtils.info("Address", "Updating dropdown", { 
+        dropdownFound: !!dropdown,
+        addressCount: possibleAddresses?.length 
+    });
+    
+    if (!dropdown) {
+        debugUtils.error("Address", "Dropdown element not found");
+        return;
+    }
+    
     dropdown.innerHTML = "";
     
     if (possibleAddresses && possibleAddresses.length > 0) {
+        debugUtils.info("Address", "Adding address options to dropdown");
         possibleAddresses.forEach((address) => {
             const div = document.createElement("div");
             div.textContent = address.address;
@@ -78,6 +97,7 @@ export function updateDropdown(possibleAddresses) {
         });
         dropdown.classList.add("show");
     } else {
+        debugUtils.info("Address", "No addresses to show, hiding dropdown");
         dropdown.classList.remove("show");
     }
 }

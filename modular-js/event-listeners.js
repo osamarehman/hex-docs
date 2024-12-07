@@ -7,8 +7,13 @@ export function setupEventListeners() {
 
     // Address input listener
     const addressInput = document.getElementById("addressInput");
+    debugUtils.info("System", "Looking for addressInput element", { found: !!addressInput });
+    
     if (addressInput) {
         addressInput.addEventListener("input", handleAddressInput);
+        debugUtils.info("System", "Added input listener to addressInput");
+    } else {
+        debugUtils.error("System", "addressInput element not found");
     }
 
     // Form field listeners
@@ -57,15 +62,14 @@ function collectFormData() {
     };
 }
 
-export function updatePaymentMethod(selectedTab) {
-    const paymentTabs = document.querySelectorAll('.payment-tab');
-    paymentTabs.forEach(tab => {
-        tab.classList.remove('active');
-    });
-    selectedTab.classList.add('active');
+function updatePaymentMethod(selectedTab) {
+    const monthlyTab = document.getElementById('monthlyTab');
+    const oneTimeTab = document.getElementById('oneTimeTab');
+    const paymentMethod = selectedTab.id === 'monthlyTab' ? 'monthly' : 'onetime';
     
-    const paymentMethod = selectedTab.getAttribute('data-payment');
+    monthlyTab.classList.toggle('active', paymentMethod === 'monthly');
+    oneTimeTab.classList.toggle('active', paymentMethod === 'onetime');
+    
     document.getElementById('chosenPayment').value = paymentMethod;
-    
     calculateMonthlyPayment(collectFormData());
 }
