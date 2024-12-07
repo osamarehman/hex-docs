@@ -18,8 +18,11 @@ window.initMap = initMap;
 
 // Expose necessary functions to global scope for HTML event handlers
 window.handleAddressSelection = handleAddressSelection;
+window.handleAddressInput = handleAddressInput;
 window.displayCalculationResults = displayCalculationResults;
 window.calculateMonthlyPayment = paymentCalculator.calculateProductMonthlyPayment.bind(paymentCalculator);
+window.updateDhpDisplay = updateDhpDisplay;
+window.debugUtils = debugUtils; // Expose debug utils globally for testing
 
 // Setup all event listeners when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
@@ -29,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Initialize debug UI if in debug mode
     if (debugUtils.getLevel() > 0) {
         debugUtils.initializeDebugUI();
+        debugUtils.info("Debug", "Debug UI initialized");
     }
     
     // Set up initial display states

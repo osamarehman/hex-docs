@@ -1,9 +1,11 @@
 // Debug utilities
 let debugLevel = 0;
 
-export const debugUtils = {
+const debugUtils = {
     setLevel(level) {
         debugLevel = level;
+        console.log(`Debug level set to ${level}`);
+        this.info("Debug", `Debug level set to ${level}`);
     },
 
     getLevel() {
@@ -22,18 +24,22 @@ export const debugUtils = {
     },
 
     error(category, message, data = null) {
+        console.error(`[${category}] ERROR: ${message}`, data);
         this.log(1, category, `ERROR: ${message}`, data);
     },
 
     warn(category, message, data = null) {
+        console.warn(`[${category}] WARNING: ${message}`, data);
         this.log(2, category, `WARNING: ${message}`, data);
     },
 
     info(category, message, data = null) {
+        console.info(`[${category}] ${message}`, data);
         this.log(3, category, message, data);
     },
 
     debug(category, message, data = null) {
+        console.debug(`[${category}] ${message}`, data);
         this.log(4, category, message, data);
     },
 
@@ -56,6 +62,7 @@ export const debugUtils = {
                 z-index: 9999;
             `;
             document.body.appendChild(debugPanel);
+            this.info("Debug", "Debug panel initialized");
         }
     },
 
@@ -63,7 +70,8 @@ export const debugUtils = {
         const debugPanel = document.getElementById('debugPanel');
         if (debugPanel) {
             const entry = document.createElement('div');
-            entry.innerHTML = `[${category}] ${message}`;
+            const timestamp = new Date().toISOString().split('T')[1].split('.')[0];
+            entry.innerHTML = `[${timestamp}] [${category}] ${message}`;
             if (data) {
                 entry.title = JSON.stringify(data, null, 2);
             }
@@ -79,3 +87,5 @@ export const debugUtils = {
         }
     }
 };
+
+debugUtils.initializeDebugUI();
