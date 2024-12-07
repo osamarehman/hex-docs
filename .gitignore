@@ -32,3 +32,11 @@ yarn-error.log*
 
 # Optional eslint cache
 .eslintcache
+
+# Source files (but keep dist)
+modular-js/node_modules/
+!modular-js/dist/
+modular-js/__tests__/
+modular-js/*.js
+!modular-js/package.json
+!modular-js/rollup.config.js

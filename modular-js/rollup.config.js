@@ -5,7 +5,7 @@ import terser from '@rollup/plugin-terser';
 export default {
     input: 'index.js',
     output: {
-        file: 'dist/bundle.min.js',
+        file: '../dist/calculator.min.js',
         format: 'iife',
         name: 'HexCalculator',
         sourcemap: true
