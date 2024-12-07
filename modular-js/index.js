@@ -1,13 +1,16 @@
+// Base URL for GitHub Pages
+const baseUrl = '/Hex-webflow-code/modular-js';
+
 // Import all required modules
-import { debugUtils } from './debug-utils.js';
-import { CHtoWGSlat, CHtoWGSlng } from './coordinates.js';
-import { handleAddressInput, handleAddressSelection } from './address-handler.js';
-import { fetchDataGet, fetchDataPost } from './api.js';
-import { displayCalculationResults, updateDhpDisplay } from './display-handler.js';
-import { validateCalculationParams } from './validation.js';
-import { paymentCalculator } from './payment-calculator.js';
-import { setupEventListeners } from './event-listeners.js';
-import { initMap } from './map-handler.js';
+import { debugUtils } from `${baseUrl}/debug-utils.js`;
+import { CHtoWGSlat, CHtoWGSlng } from `${baseUrl}/coordinates.js`;
+import { handleAddressInput, handleAddressSelection } from `${baseUrl}/address-handler.js`;
+import { fetchDataGet, fetchDataPost } from `${baseUrl}/api.js`;
+import { displayCalculationResults, updateDhpDisplay } from `${baseUrl}/display-handler.js`;
+import { validateCalculationParams } from `${baseUrl}/validation.js`;
+import { paymentCalculator } from `${baseUrl}/payment-calculator.js`;
+import { setupEventListeners } from `${baseUrl}/event-listeners.js`;
+import { initMap } from `${baseUrl}/map-handler.js`;
 
 // Initialize debugging
 debugUtils.setLevel(1); // Enable logging (0 would disable it)
