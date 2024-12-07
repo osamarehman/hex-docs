@@ -18,7 +18,6 @@ package-lock.json
 Thumbs.db
 
 # Build output
-dist/
 build/
 out/
 
