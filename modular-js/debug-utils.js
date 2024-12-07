@@ -1,7 +1,7 @@
 // Debug utilities
 let debugLevel = 0;
 
-const debugUtils = {
+export const debugUtils = {
     setLevel(level) {
         debugLevel = level;
         console.log(`Debug level set to ${level}`);

@@ -12,23 +12,41 @@ import { paymentCalculator } from `${baseUrl}/payment-calculator.js`;
 import { setupEventListeners } from `${baseUrl}/event-listeners.js`;
 import { initMap } from `${baseUrl}/map-handler.js`;
 
-// Initialize debugging
-debugUtils.setLevel(1); // Enable logging (0 would disable it)
-console.log("initialized");
+// Initialize debugging immediately
+console.log("Module loading started");
 
-// Initialize map when Google Maps API is loaded
-window.initMap = initMap;
+// Function to initialize the application
+async function initializeApp() {
+    try {
+        // Initialize debugging
+        debugUtils.setLevel(1); // Enable logging (0 would disable it)
+        console.log("initialized");
 
-// Expose necessary functions to global scope for HTML event handlers
-window.handleAddressSelection = handleAddressSelection;
-window.handleAddressInput = handleAddressInput;
-window.displayCalculationResults = displayCalculationResults;
-window.calculateMonthlyPayment = paymentCalculator.calculateProductMonthlyPayment.bind(paymentCalculator);
-window.updateDhpDisplay = updateDhpDisplay;
-window.debugUtils = debugUtils; // Expose debug utils globally for testing
+        // Initialize map when Google Maps API is loaded
+        window.initMap = initMap;
 
-// Setup all event listeners when DOM is loaded
-document.addEventListener("DOMContentLoaded", () => {
+        // Expose necessary functions to global scope for HTML event handlers
+        window.handleAddressSelection = handleAddressSelection;
+        window.handleAddressInput = handleAddressInput;
+        window.displayCalculationResults = displayCalculationResults;
+        window.calculateMonthlyPayment = paymentCalculator.calculateProductMonthlyPayment.bind(paymentCalculator);
+        window.updateDhpDisplay = updateDhpDisplay;
+        window.debugUtils = debugUtils; // Expose debug utils globally for testing
+
+        debugUtils.info("System", "Global functions exposed");
+
+        // Setup all event listeners when DOM is loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', setupApplication);
+        } else {
+            setupApplication();
+        }
+    } catch (error) {
+        console.error("Error initializing application:", error);
+    }
+}
+
+function setupApplication() {
     debugUtils.info("System", "Initializing application");
     setupEventListeners();
     
@@ -40,4 +58,9 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // Set up initial display states
     updateDhpDisplay();
+}
+
+// Start initialization
+initializeApp().catch(error => {
+    console.error("Failed to initialize application:", error);
 });
