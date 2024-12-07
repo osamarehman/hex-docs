@@ -1,5 +1,5 @@
 // Debug utilities
-let debugLevel = 1;
+let debugLevel = 0;
 
 export const debugUtils = {
     setLevel(level) {
@@ -44,26 +44,26 @@ export const debugUtils = {
     },
 
     initializeDebugUI() {
-        if (!document.getElementById('debugPanel')) {
-            const debugPanel = document.createElement('div');
-            debugPanel.id = 'debugPanel';
-            debugPanel.style.cssText = `
-                position: fixed;
-                bottom: 0;
-                right: 0;
-                width: 300px;
-                height: 200px;
-                background: rgba(0, 0, 0, 0.8);
-                color: #fff;
-                padding: 10px;
-                font-family: monospace;
-                font-size: 12px;
-                overflow-y: auto;
-                z-index: 9999;
-            `;
-            document.body.appendChild(debugPanel);
-            this.info("Debug", "Debug panel initialized");
-        }
+        // if (!document.getElementById('debugPanel')) {
+        //     const debugPanel = document.createElement('div');
+        //     debugPanel.id = 'debugPanel';
+        //     debugPanel.style.cssText = `
+        //         position: fixed;
+        //         bottom: 0;
+        //         right: 0;
+        //         width: 300px;
+        //         height: 200px;
+        //         background: rgba(0, 0, 0, 0.8);
+        //         color: #fff;
+        //         padding: 10px;
+        //         font-family: monospace;
+        //         font-size: 12px;
+        //         overflow-y: auto;
+        //         z-index: 9999;
+        //     `;
+        //     document.body.appendChild(debugPanel);
+        //     this.info("Debug", "Debug panel initialized");
+        // }
     },
 
     updateDebugUI(category, message, data) {

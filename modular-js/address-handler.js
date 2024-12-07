@@ -95,9 +95,9 @@ export function updateDropdown(possibleAddresses) {
             div.onclick = () => handleAddressSelection(address.eingangId);
             dropdown.appendChild(div);
         });
-        dropdown.classList.add("show");
+        dropdown.style.display = "block";
     } else {
         debugUtils.info("Address", "No addresses to show, hiding dropdown");
-        dropdown.classList.remove("show");
+        dropdown.style.display = "none";
     }
 }

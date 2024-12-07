@@ -1,16 +1,16 @@
 // Base URL for GitHub Pages
-const baseUrl = 'https://osamarehman.github.io/Hex-webflow-code/modular-js';
+const baseUrl = './';
 
 // Import all required modules
-import { debugUtils } from 'https://osamarehman.github.io/Hex-webflow-code/modular-js/debug-utils.js';
-import { CHtoWGSlat, CHtoWGSlng } from 'https://osamarehman.github.io/Hex-webflow-code/modular-js/coordinates.js';
-import { handleAddressInput, handleAddressSelection } from 'https://osamarehman.github.io/Hex-webflow-code/modular-js/address-handler.js';
-import { fetchDataGet, fetchDataPost } from 'https://osamarehman.github.io/Hex-webflow-code/modular-js/api.js';
-import { displayCalculationResults, updateDhpDisplay } from 'https://osamarehman.github.io/Hex-webflow-code/modular-js/display-handler.js';
-import { validateCalculationParams } from 'https://osamarehman.github.io/Hex-webflow-code/modular-js/validation.js';
-import { paymentCalculator } from 'https://osamarehman.github.io/Hex-webflow-code/modular-js/payment-calculator.js';
-import { setupEventListeners } from 'https://osamarehman.github.io/Hex-webflow-code/modular-js/event-listeners.js';
-import { initMap } from 'https://osamarehman.github.io/Hex-webflow-code/modular-js/map-handler.js';
+import { debugUtils } from './debug-utils.js';
+import { CHtoWGSlat, CHtoWGSlng } from './coordinates.js';
+import { handleAddressInput, handleAddressSelection } from './address-handler.js';
+import { fetchDataGet, fetchDataPost } from './api.js';
+import { displayCalculationResults, updateDhpDisplay } from './display-handler.js';
+import { validateCalculationParams } from './validation.js';
+import { paymentCalculator } from './payment-calculator.js';
+import { setupEventListeners } from './event-listeners.js';
+import { initMap } from './map-handler.js';
 
 // Initialize debugging immediately
 console.log("Module loading started");
