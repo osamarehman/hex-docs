@@ -1,5 +1,5 @@
 // Base URL for GitHub Pages
-const baseUrl = '/Hex-webflow-code/modular-js';
+const baseUrl = 'https://osamarehman.github.io/Hex-webflow-code/modular-js';
 
 // Import all required modules
 import { debugUtils } from `${baseUrl}/debug-utils.js`;
