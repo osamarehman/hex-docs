@@ -2,6 +2,14 @@
 
 This repository contains the code for the Hex Webflow project.
 
+## Distribution
+
+The bundled JavaScript is available via GitHub Pages. You can include it in your project using:
+
+```html
+<script src="https://[your-username].github.io/Hex-webflow-code/dist/bundle.min.js"></script>
+```
+
 ## Getting Started
 
 These instructions will help you set up and run the project locally.
