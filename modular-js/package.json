@@ -1,0 +1,23 @@
+{
+  "name": "hex-calculator",
+  "version": "1.0.0",
+  "description": "Hex Calculator JavaScript Bundle",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "build": "rollup -c",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "watch": "rollup -c -w"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.22.5",
+    "@babel/preset-env": "^7.22.5",
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "@rollup/plugin-terser": "^0.4.0",
+    "babel-jest": "^29.5.0",
+    "jest": "^29.0.0",
+    "jest-environment-jsdom": "^29.5.0",
+    "rollup": "^3.0.0"
+  }
+}
