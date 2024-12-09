@@ -1,48 +1,53 @@
 // Function to fetch and parse markdown content for weekly progress
 async function fetchAndParseWeeklyProgress() {
     try {
-        const response = await fetch('../weekly-tasks.md');
+        const response = await fetch('weekly-tasks.md');
         const markdownContent = await response.text();
-        
-        // Split content into weekly sections
-        const sections = markdownContent.split('## Week');
         
         // Get the weeks container
         const weeksContainer = document.getElementById('weeks-container');
-        if (!weeksContainer) return;
+        if (!weeksContainer) {
+            console.error('Weeks container not found');
+            return;
+        }
+
+        // Find all week sections using regex
+        const weekSections = markdownContent.match(/### Week \d[\s\S]*?(?=### Week \d|$)/g);
+        
+        if (!weekSections) {
+            console.error('No week sections found in markdown');
+            return;
+        }
+
+        // Clear existing content
+        weeksContainer.innerHTML = '';
         
         // Process each week's content
-        sections.slice(1).forEach((section, index) => {
+        weekSections.forEach((section, index) => {
             const weekNumber = index + 1;
-            const weekContent = '## Week' + section;
-            const weekHtml = marked.parse(weekContent);
+            const weekHtml = marked.parse(section);
             
             // Create a tab panel for this week
             const tabPanel = document.createElement('div');
             tabPanel.id = `week${weekNumber}`;
             tabPanel.role = 'tabpanel';
             tabPanel.setAttribute('aria-labelledby', `week${weekNumber}-tab`);
-            tabPanel.className = 'tab-content hidden';
-            if (weekNumber === 1) {
-                tabPanel.classList.remove('hidden');
-            }
+            tabPanel.className = 'tab-content hidden prose max-w-none';
             
             // Create a temporary container to hold the parsed HTML
-            const tempContainer = document.createElement('div');
-            tempContainer.innerHTML = weekHtml;
+            tabPanel.innerHTML = weekHtml;
             
-            // Process tables and apply Tailwind classes
-            const tables = tempContainer.getElementsByTagName('table');
+            // Process tables in this section
+            const tables = tabPanel.getElementsByTagName('table');
             Array.from(tables).forEach(table => {
-                table.className = 'min-w-full divide-y divide-gray-200';
+                table.className = 'min-w-full divide-y divide-gray-200 mt-4';
                 
                 // Style table header
                 const thead = table.getElementsByTagName('thead')[0];
-                if (!thead) {
-                    const firstRow = table.rows[0];
+                if (!thead && table.rows.length > 0) {
                     const thead = document.createElement('thead');
                     thead.className = 'bg-gray-50';
-                    thead.appendChild(firstRow);
+                    thead.appendChild(table.rows[0]);
                     table.insertBefore(thead, table.firstChild);
                 }
                 
@@ -60,7 +65,6 @@ async function fetchAndParseWeeklyProgress() {
                 });
             });
             
-            tabPanel.appendChild(tempContainer);
             weeksContainer.appendChild(tabPanel);
         });
         
@@ -74,6 +78,7 @@ async function fetchAndParseWeeklyProgress() {
 // Function to initialize tabs
 function initializeTabs() {
     const tabs = document.querySelectorAll('[role="tab"]');
+    const firstTab = tabs[0];
     
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
@@ -103,7 +108,6 @@ function initializeTabs() {
     });
     
     // Activate the first tab by default
-    const firstTab = tabs[0];
     if (firstTab) {
         firstTab.click();
     }
