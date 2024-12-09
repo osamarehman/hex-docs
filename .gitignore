@@ -35,4 +35,9 @@ yarn-error.log*
 
 # Source files
 
-main-new.js
+
+modular-js/bundle.js
+/modular-js
+PRD-Extended.md
+PRD-v1.md
+PRD.md

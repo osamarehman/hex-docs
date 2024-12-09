@@ -1,8 +1,8 @@
-import { debugUtils } from './debug-utils.js';
-import { handleAddressInput } from './address-handler.js';
-import { calculateMonthlyPayment } from './form-handler.js';
+// import { debugUtils } from './debug-utils.js';
+// import { handleAddressInput } from './address-handler.js';
+// import { calculateMonthlyPayment } from './form-handler.js';
 
-export function setupEventListeners() {
+window.setupEventListeners = function () {
     debugUtils.info("System", "Setting up event listeners");
 
     // Address input listener
@@ -47,7 +47,7 @@ export function setupEventListeners() {
     });
 }
 
-function collectFormData() {
+window.collectFormData = function () {
     return {
         buildingAge: document.getElementById("buildingAge").value,
         livingArea: document.getElementById("livingArea").value,
@@ -62,7 +62,7 @@ function collectFormData() {
     };
 }
 
-function updatePaymentMethod(selectedTab) {
+window.updatePaymentMethod = function (selectedTab) {
     const monthlyTab = document.getElementById('monthlyTab');
     const oneTimeTab = document.getElementById('oneTimeTab');
     const paymentMethod = selectedTab.id === 'monthlyTab' ? 'monthly' : 'onetime';

@@ -1,7 +1,7 @@
 // display-handler.js
-import { debugUtils } from './debug-utils.js';
+// import { debugUtils } from './debug-utils.js';
 
-export function displayCalculationResults(data) {
+window.displayCalculationResults = function(data) {
     debugUtils.info("Display", "Displaying calculation results", { data });
 
     try {
@@ -28,7 +28,7 @@ export function displayCalculationResults(data) {
     }
 }
 
-function updateMonthlyPaymentDisplay(data) {
+ window.updateMonthlyPaymentDisplay = function(data) {
     const monthlyPaymentElement = document.getElementById("monthlyPayment");
     const monthlyInterestElement = document.getElementById("monthlyInterest");
     
@@ -41,11 +41,19 @@ function updateMonthlyPaymentDisplay(data) {
     }
 }
 
-export function updateDhpDisplay() {
+window.updateDhpDisplay = function() {
+    debugUtils.info("Display", "Updating DHP display");
     const newHeatingPlace = document.getElementById("newHeatingPlace");
     const dhpDiv = document.getElementById("dhp");
     
     if (newHeatingPlace && dhpDiv) {
-        dhpDiv.style.display = newHeatingPlace.value === "dhp" ? "block" : "none";
+        const shouldShow = newHeatingPlace.value === "dhp";
+        dhpDiv.style.display = shouldShow ? "block" : "none";
+        debugUtils.info("Display", `${shouldShow ? "Showing" : "Hiding"} DHP section`);
+    } else {
+        debugUtils.warn("Display", "Required elements not found", {
+            newHeatingPlace: !!newHeatingPlace,
+            dhpDiv: !!dhpDiv
+        });
     }
 }

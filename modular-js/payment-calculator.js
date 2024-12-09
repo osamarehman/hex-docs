@@ -1,5 +1,5 @@
-import { debugUtils } from './debug-utils.js';
-import { productManager } from './product-manager.js';
+// import { debugUtils } from './debug-utils.js';
+// import { productManager } from './product-manager.js';
 
 class PaymentCalculator {
     constructor() {
@@ -92,4 +92,4 @@ class PaymentCalculator {
     }
 }
 
-export const paymentCalculator = new PaymentCalculator();
+window.paymentCalculator = new PaymentCalculator();

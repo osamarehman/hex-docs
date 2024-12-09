@@ -1,9 +1,9 @@
-import { debugUtils } from './debug-utils.js';
+// import { debugUtils } from './debug-utils.js';
 
 let map = null;
 let marker = null;
 
-export function initMap() {
+window.initMap = function () {
     debugUtils.info("Map", "Initializing Google Map");
 
     try {
@@ -29,40 +29,38 @@ export function initMap() {
     }
 }
 
-export function showOnMap(lat, lng) {
-    debugUtils.info("Map", "Updating map position", { lat, lng });
-
+window.showOnMap = function(lat, lng) {
     try {
+        debugUtils.info("Map", "Showing location on map", { lat, lng });
+        
         if (!map) {
-            debugUtils.error("Map", "Map instance not found");
+            debugUtils.error("Map", "Map not initialized");
             return;
         }
 
-        const position = { 
-            lat: parseFloat(lat), 
-            lng: parseFloat(lng) 
-        };
+        const location = { lat: parseFloat(lat), lng: parseFloat(lng) };
+        
+        // Update map center
+        map.setCenter(location);
+        map.setZoom(15);
 
-        if (isNaN(position.lat) || isNaN(position.lng)) {
-            debugUtils.error("Map", "Invalid coordinates", position);
-            return;
-        }
-
-        map.setCenter(position);
-        map.setZoom(18);
-
+        // Update or create marker
         if (marker) {
-            marker.setPosition(position);
-            debugUtils.info("Map", "Updated existing marker position");
+            marker.setPosition(location);
         } else {
             marker = new google.maps.Marker({
-                position: position,
+                position: location,
                 map: map,
                 animation: google.maps.Animation.DROP
             });
-            debugUtils.info("Map", "Created new marker");
         }
+
+        debugUtils.info("Map", "Location shown successfully", { location });
     } catch (error) {
-        debugUtils.error("Map", "Error updating map", { error });
+        debugUtils.error("Map", "Error showing location on map", { 
+            error: error.message,
+            stack: error.stack,
+            coordinates: { lat, lng }
+        });
     }
 }

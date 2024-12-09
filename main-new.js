@@ -652,11 +652,10 @@ function displayCalculationResults(data) {
       helpers.updateElement(`totalPrice${suffix}`, priceData.totalPrice, {
         isPrice: true,
       });
-      helpers.updateElement(
-        `totalSalesPrice${suffix}`,
-        priceData.totalSalesPrice,
-        { isPrice: true, prefix: "CHF " }
-      );
+      helpers.updateElement(`totalSalesPrice${suffix}`, priceData.totalPrice, {
+        isPrice: true,
+        prefix: "CHF ",
+      });
 
       // Format and display subsidy
       const subsidyValue = priceData.subsidy;
@@ -1156,15 +1155,12 @@ function calculateMonthlyCalc() {
     document.querySelector('input[name="monthlyPayment"]').value =
       roundedPayment;
 
-    // Copy all other product details
-    document.getElementById("selectedtotalPrice").textContent = totalPrice
-      .toLocaleString("en-US")
-      .replace(/,/g, "'");
-    document.getElementById(
-      "totalSalesPriceSelected"
-    ).textContent = `CHF ${totalPrice
-      .toLocaleString("en-US")
-      .replace(/,/g, "'")}`;
+    // Fix: Update the code to use the correct reference price
+    document.getElementById("selectedtotalPrice").textContent =
+      document.getElementById(`totalPrice${selectedProduct}`).textContent;
+    document.getElementById("totalSalesPriceSelected").textContent =
+      document.getElementById(`totalPrice${selectedProduct}`).textContent;
+
     document.getElementById("selectedloudness").textContent =
       document.getElementById(`loudness${selectedProduct}`).textContent;
     document.getElementById("selectedboilerSize").textContent =
@@ -1762,38 +1758,154 @@ window.showOnMap = function (lat, lng) {
   }
 };
 
+// Updated mapping of German labels to response keys with new fields
+const labelToResponseKeyMap = {
+  Hersteller: "manufactorer",
+  Produkt: "productType",
+  Typ: "type",
+  "Energie-Effizienz": "energy_efficiency",
+  Speicher: "accessory", // bufferMemory renamed to accessory
+  Kältemittel: "pipping", // refrigerant renamed to pipping
+  Masse: "pippingBoiler", // mass renamed to pippingBoiler
+};
+
+// Template HTML for the feature list - updated with new fields
+const featureListTemplate = `
+<div class="plan_product_tool vertical">
+  <div class="div-block-11">
+    <div class="plan_product_tool-item">
+      <div class="text-size-tiny">Hersteller</div>
+    </div>
+    <div class="text-size-tiny">Inklusive</div>
+  </div>
+  <div class="div-block-11">
+    <div class="plan_product_tool-item">
+      <div class="text-size-tiny">Produkt</div>
+    </div>
+    <div class="text-size-tiny">Inklusive</div>
+  </div>
+  <div class="div-block-11">
+    <div class="plan_product_tool-item">
+      <div class="text-size-tiny">Typ</div>
+    </div>
+    <div class="text-size-tiny">Inklusive</div>
+  </div>
+  <div class="div-block-11">
+    <div class="plan_product_tool-item">
+      <div class="text-size-tiny">Energie-Effizienz</div>
+    </div>
+    <div class="text-size-tiny">Inklusive</div>
+  </div>
+  <div class="div-block-11">
+    <div class="plan_product_tool-item">
+      <div class="text-size-tiny">Speicher</div>
+    </div>
+    <div class="text-size-tiny">Inklusive</div>
+  </div>
+  <div class="div-block-11">
+    <div class="plan_product_tool-item">
+      <div class="text-size-tiny">Kältemittel</div>
+    </div>
+    <div class="text-size-tiny">Inklusive</div>
+  </div>
+  <div class="div-block-11 last">
+    <div class="plan_product_tool-item">
+      <div class="text-size-tiny">Masse</div>
+    </div>
+    <div class="text-size-tiny">Inklusive</div>
+  </div>
+</div>`;
+
+function updateFeatureLists(responseData) {
+  if (!Array.isArray(responseData) || responseData.length === 0) {
+    debugUtils.error("FeatureList", "Invalid response data");
+    return;
+  }
+
+  debugUtils.info("FeatureList", "Response data", responseData);
+
+  responseData.forEach((productData, index) => {
+    const cardLetter = String.fromCharCode(65 + index); // Convert 0,1,2 to A,B,C
+    const cardId = `productCard${cardLetter}`;
+
+    debugUtils.info("FeatureList", `Processing card ${cardLetter}`, {
+      heatPumpData: productData.heatPump,
+    });
+
+    // Get the card container
+    const cardContainer = document.getElementById(cardId);
+    if (!cardContainer) {
+      debugUtils.error("FeatureList", `Card container not found: ${cardId}`);
+      return;
+    }
+
+    // Remove existing feature list if it exists
+    const existingList = cardContainer.querySelector(
+      ".plan_product_tool.vertical"
+    );
+    if (existingList) {
+      existingList.remove();
+    }
+
+    // Create new feature list from template
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = featureListTemplate.trim();
+    const newFeatureList = tempDiv.firstChild;
+
+    // Find insertion point - before the accordion
+    const accordion = cardContainer.querySelector(".plan_product-accordion");
+    if (!accordion) {
+      debugUtils.error(
+        "FeatureList",
+        `Accordion not found in card ${cardLetter}`
+      );
+      return;
+    }
+
+    // Insert the new feature list
+    accordion.parentNode.insertBefore(newFeatureList, accordion);
+
+    // Update feature values
+    const features = newFeatureList.querySelectorAll(".div-block-11");
+    features.forEach((featureBlock) => {
+      const labelElement = featureBlock.querySelector(".text-size-tiny");
+      if (!labelElement) return;
+
+      const label = labelElement.textContent.trim();
+      const responseKey = labelToResponseKeyMap[label];
+
+      if (responseKey) {
+        const value = productData.heatPump[responseKey];
+        debugUtils.info("FeatureList", `Setting value for ${label}`, {
+          card: cardLetter,
+          key: responseKey,
+          value: value,
+        });
+
+        if (value) {
+          labelElement.textContent = `${label}: ${value}`;
+        }
+      }
+    });
+  });
+}
+
+// Hook into the existing displayCalculationResults function
 const originalDisplayCalculationResults = window.displayCalculationResults;
 window.displayCalculationResults = function (data) {
-  debugUtils.info("Results", "Displaying calculation results", {
-    productCount: data.length,
+  debugUtils.info("Results", "Starting calculation results display", {
+    dataLength: data?.length,
   });
+
   try {
-    const beforeState = {
-      totalPriceA: document.getElementById("totalPriceA")?.textContent,
-      totalPriceB: document.getElementById("totalPriceB")?.textContent,
-      totalPriceC: document.getElementById("totalPriceC")?.textContent,
-    };
-
     const result = originalDisplayCalculationResults.apply(this, arguments);
-
-    const afterState = {
-      totalPriceA: document.getElementById("totalPriceA")?.textContent,
-      totalPriceB: document.getElementById("totalPriceB")?.textContent,
-      totalPriceC: document.getElementById("totalPriceC")?.textContent,
-    };
-
-    debugUtils.debug("Results", "Results display completed", {
-      before: beforeState,
-      after: afterState,
-      products: data.map((item) => ({
-        id: item?.heatPump?.productType,
-        price: item?.totalPrice,
-        subsidy: item?.heatPump?.forderung,
-      })),
-    });
+    updateFeatureLists(data);
     return result;
   } catch (error) {
-    debugUtils.error("Results", "Failed to display results", error);
+    debugUtils.error("Results", "Error in display calculation results", {
+      error,
+      stack: error.stack,
+    });
     throw error;
   }
 };

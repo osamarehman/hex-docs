@@ -1,4 +1,4 @@
-import { debugUtils } from './debug-utils.js';
+// import { debugUtils } from './debug-utils.js';
 
 class ProductManager {
     constructor() {
@@ -75,4 +75,4 @@ class ProductManager {
     }
 }
 
-export const productManager = new ProductManager();
+window.productManager = new ProductManager();

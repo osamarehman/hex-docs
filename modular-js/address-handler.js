@@ -11,25 +11,48 @@ export const handleAddressInput = debounce(async function () {
     
     if (address.length === 0) {
         debugUtils.info("Address", "Empty address, skipping fetch");
+        const dropdown = document.getElementById("myDropdown");
+        if (dropdown) {
+            dropdown.innerHTML = "";
+            dropdown.style.display = "none";
+        }
         return;
     }
     
     try {
         debugUtils.info("Address", "Fetching possible addresses", { address });
         const url = `${API_ENDPOINTS.possibleAddress}?address=${encodeURIComponent(address)}`;
-        debugUtils.info("Address", "API request", { url });
+        debugUtils.info("Address", "API request URL", { url });
         
-        const possibleAddresses = await fetchDataGet(url);
-        debugUtils.info("Address", "Received possible addresses", { count: possibleAddresses.length });
+        const response = await fetch(url);
+        debugUtils.info("Address", "API response status", { 
+            status: response.status,
+            ok: response.ok 
+        });
+        
+        const possibleAddresses = await response.json();
+        debugUtils.info("Address", "Received possible addresses", { 
+            count: possibleAddresses.length,
+            addresses: possibleAddresses 
+        });
         
         updateDropdown(possibleAddresses);
         resetFormValues();
     } catch (error) {
-        debugUtils.error("Address", "Error fetching possible addresses:", error);
+        debugUtils.error("Address", "Error fetching possible addresses:", { 
+            error: error.message,
+            stack: error.stack,
+            url: `${API_ENDPOINTS.possibleAddress}?address=${encodeURIComponent(address)}`
+        });
+        const dropdown = document.getElementById("myDropdown");
+        if (dropdown) {
+            dropdown.innerHTML = "<div class='error'>Error loading addresses</div>";
+            dropdown.style.display = "block";
+        }
     }
 }, 300);
 
-export async function handleAddressSelection(eingangId) {
+export const handleAddressSelection = async function (eingangId) {
     debugUtils.info("Address", "Handling address selection", { eingangId });
 
     try {
@@ -69,7 +92,11 @@ export async function handleAddressSelection(eingangId) {
             debugUtils.warn("Map", "No coordinates found in house info");
         }
     } catch (error) {
-        debugUtils.error("Address", "Error fetching house info", { error });
+        debugUtils.error("Address", "Error fetching house info", { 
+            error: error.message,
+            stack: error.stack,
+            url: `${API_ENDPOINTS.houseInfo}?eingangId=${eingangId}`
+        });
     }
 }
 

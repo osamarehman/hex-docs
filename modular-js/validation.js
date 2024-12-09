@@ -1,44 +1,44 @@
 // validation.js
-import { debugUtils } from './debug-utils.js';
+// Removed import for debugUtils as it's now available globally
 
-export function validateCalculationParams(params) {
+window.validateCalculationParams = function (params) {
     debugUtils.info("Validation", "Validating calculation parameters", { params });
 
     const requiredFields = [
-        'eingangId',
-        'heatingType',
-        'newHeatingPlace',
-        'buildingType',
-        'constructionYear',
-        'heatedArea'
+        "buildingAge",
+        "livingArea",
+        "currentHeating",
+        "newHeatingPlace",
+        "chosenPayment"
     ];
 
+    // Check for missing required fields
     const missingFields = requiredFields.filter(field => !params[field]);
-
     if (missingFields.length > 0) {
         debugUtils.error("Validation", "Missing required fields", { missingFields });
-        throw new Error(`Missing required fields: ${missingFields.join(', ')}`);
+        return false;
     }
 
     // Validate numeric fields
-    if (isNaN(params.heatedArea) || params.heatedArea <= 0) {
-        debugUtils.error("Validation", "Invalid heated area", { heatedArea: params.heatedArea });
-        throw new Error('Heated area must be a positive number');
+    const numericFields = ["buildingAge", "livingArea"];
+    const invalidNumericFields = numericFields.filter(field => {
+        const value = parseFloat(params[field]);
+        return isNaN(value) || value <= 0;
+    });
+
+    if (invalidNumericFields.length > 0) {
+        debugUtils.error("Validation", "Invalid numeric fields", { invalidNumericFields });
+        return false;
     }
 
-    if (isNaN(params.constructionYear) || params.constructionYear < 1800 || params.constructionYear > new Date().getFullYear()) {
-        debugUtils.error("Validation", "Invalid construction year", { constructionYear: params.constructionYear });
-        throw new Error('Invalid construction year');
-    }
-
-    debugUtils.info("Validation", "Parameters validated successfully");
+    debugUtils.info("Validation", "Validation successful");
     return true;
 }
 
-export function validateAddressInput(address) {
+window.validateAddressInput = function (address) {
     return address && address.trim().length >= 3;
 }
 
-export function validateHouseInfo(houseInfo) {
+window.validateHouseInfo = function (houseInfo) {
     return houseInfo && houseInfo.dkodeE && houseInfo.dkodeN;
 }

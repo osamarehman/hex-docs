@@ -1,5 +1,5 @@
 // Utility functions
-export function debounce(func, delay) {
+window.debounce = function (func, delay) {
     let timer;
     return function () {
         const context = this;
@@ -11,7 +11,7 @@ export function debounce(func, delay) {
     };
 }
 
-export function PMT(rate, nper, pv) {
+window.PMT = function (rate, nper, pv) {
     const pvif = Math.pow(1 + rate, nper);
     const pmt = (rate * pv * pvif) / (pvif - 1);
     return pmt;

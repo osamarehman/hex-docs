@@ -1,41 +1,22 @@
-// Base URL for GitHub Pages
-const baseUrl = './';
-
-// Import all required modules
-import { debugUtils } from './debug-utils.js';
-import { CHtoWGSlat, CHtoWGSlng } from './coordinates.js';
-import { handleAddressInput, handleAddressSelection } from './address-handler.js';
-import { fetchDataGet, fetchDataPost } from './api.js';
-import { displayCalculationResults, updateDhpDisplay } from './display-handler.js';
-import { validateCalculationParams } from './validation.js';
-import { paymentCalculator } from './payment-calculator.js';
-import { setupEventListeners } from './event-listeners.js';
-import { initMap } from './map-handler.js';
-
 // Initialize debugging immediately
-console.log("Module loading started");
+console.log("Application starting...");
 
 // Function to initialize the application
 async function initializeApp() {
     try {
+        // Wait for debug utils to be ready
+        await window.debugUtilsReady;
+        
+        // Verify debug utils is available
+        if (typeof window.debugUtils === 'undefined') {
+            throw new Error('debugUtils not available');
+        }
+
         // Initialize debugging
-        debugUtils.setLevel(1); // Enable logging (0 would disable it)
-        console.log("initialized");
+        window.debugUtils.setLevel(1); // Enable logging (0 would disable it)
+        window.debugUtils.info("System", "Initialization started");
 
-        // Initialize map when Google Maps API is loaded
-        window.initMap = initMap;
-
-        // Expose necessary functions to global scope for HTML event handlers
-        window.handleAddressSelection = handleAddressSelection;
-        window.handleAddressInput = handleAddressInput;
-        window.displayCalculationResults = displayCalculationResults;
-        window.calculateMonthlyPayment = paymentCalculator.calculateProductMonthlyPayment.bind(paymentCalculator);
-        window.updateDhpDisplay = updateDhpDisplay;
-        window.debugUtils = debugUtils; // Expose debug utils globally for testing
-
-        debugUtils.info("System", "Global functions exposed");
-
-        // Setup all event listeners when DOM is loaded
+        // Setup application when DOM is loaded
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', setupApplication);
         } else {
@@ -47,20 +28,32 @@ async function initializeApp() {
 }
 
 function setupApplication() {
-    debugUtils.info("System", "Initializing application");
-    setupEventListeners();
-    
-    // Initialize debug UI if in debug mode
-    if (debugUtils.getLevel() > 0) {
-        debugUtils.initializeDebugUI();
-        debugUtils.info("Debug", "Debug UI initialized");
+    try {
+        window.debugUtils.info("System", "Setting up application");
+        
+        // Set up event listeners
+        if (typeof window.setupEventListeners === 'function') {
+            window.setupEventListeners();
+        } else {
+            console.error("setupEventListeners not available");
+        }
+        
+        // Initialize debug UI if in debug mode
+        if (window.debugUtils.getLevel() > 0) {
+            window.debugUtils.initializeDebugUI();
+            window.debugUtils.info("Debug", "Debug UI initialized");
+        }
+        
+        // Set up initial display states
+        if (typeof window.updateDhpDisplay === 'function') {
+            window.updateDhpDisplay();
+        } else {
+            console.error("updateDhpDisplay not available");
+        }
+    } catch (error) {
+        console.error("Error in setupApplication:", error);
     }
-    
-    // Set up initial display states
-    updateDhpDisplay();
 }
 
-// Start initialization
-initializeApp().catch(error => {
-    console.error("Failed to initialize application:", error);
-});
+// Start initialization when window loads
+window.addEventListener('load', initializeApp);

@@ -1,5 +1,5 @@
 // Swiss coordinate conversion functions
-export function CHtoWGSlat(y, x) {
+window.CHtoWGSlat = function(y, x) {
     const y_aux = (y - 2600000) / 1000000;
     const x_aux = (x - 1200000) / 1000000;
 
@@ -13,9 +13,9 @@ export function CHtoWGSlat(y, x) {
 
     lat = (lat * 100) / 36;
     return lat;
-}
+};
 
-export function CHtoWGSlng(y, x) {
+window.CHtoWGSlng = function(y, x) {
     const y_aux = (y - 2600000) / 1000000;
     const x_aux = (x - 1200000) / 1000000;
 
@@ -28,4 +28,4 @@ export function CHtoWGSlng(y, x) {
 
     lng = (lng * 100) / 36;
     return lng;
-}
+};
