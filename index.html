@@ -658,7 +658,7 @@ const handleAddressInput = debounce(async function () {
         // Load markdown content
         async function loadMarkdownContent() {
             try {
-                const markdownResponse = await fetch('markdown-content.md');
+                const markdownResponse = await fetch('https://osamarehman.github.io/Hex-webflow-code/weekly-tasks.md');
                 const markdownContent = await markdownResponse.text();
                 
                 const htmlContent = marked(markdownContent);
