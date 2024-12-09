@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HEX - System Improvements</title>
+    <link href="https://cdn.prod.website-files.com/6627744b33c005540d1e47b7/6627744b33c005540d1e4813_fav-icon.png" rel="shortcut icon" type="image/x-icon"/>
+    <link href="https://cdn.prod.website-files.com/6627744b33c005540d1e47b7/6627744b33c005540d1e4814_web-clip.png" rel="apple-touch-icon"/>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
@@ -166,14 +168,112 @@
 
                 <section id="technical" class="mb-12">
                     <h2 class="text-3xl font-bold text-gray-900 mb-6">Technical Details</h2>
-                    <div class="bg-white p-6 rounded-lg shadow">
+                    
+                    <!-- Debug System -->
+                    <div class="bg-white p-6 rounded-lg shadow mb-6">
                         <h3 class="text-xl font-semibold text-gray-900 mb-4">Debug System Architecture</h3>
                         <pre><code class="language-javascript">const debugUtils = {
   error: (category, message, data) => log(3, category, message, data),
   warn: (category, message, data) => log(2, category, message, data),
   info: (category, message, data) => log(1, category, message, data),
   debug: (category, message, data) => log(0, category, message, data)
+}
+
+// Example usage in functions
+function handleAddressSelection(eingangId) {
+  debugUtils.info("Address", "Handling address selection", { eingangId });
+  try {
+    // Function logic
+  } catch (error) {
+    debugUtils.error("Address", "Error fetching house info", { error });
+  }
 }</code></pre>
+                    </div>
+
+                    <!-- Price Calculation -->
+                    <div class="bg-white p-6 rounded-lg shadow mb-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Price Calculation Improvements</h3>
+                        <pre><code class="language-javascript">// PMT (Payment) calculation helper function
+function PMT(rate, nper, pv) {
+  const pvif = Math.pow(1 + rate, nper);
+  const pmt = (rate * pv * pvif) / (pvif - 1);
+  return pmt;
+}
+
+// Enhanced parameter validation
+function validateCalculationParams(params) {
+  if (!params.eingangId) throw new Error("Missing eingangId");
+  if (params.amount <= 0) throw new Error("Invalid amount");
+  if (params.years < 1) throw new Error("Invalid years");
+  return true;
+}</code></pre>
+                    </div>
+
+                    <!-- Feature List -->
+                    <div class="bg-white p-6 rounded-lg shadow mb-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Feature List Implementation</h3>
+                        <pre><code class="language-javascript">// German label mapping
+const labelToResponseKeyMap = {
+  Hersteller: "manufactorer",
+  Produkt: "productType",
+  // ... more mappings
+};
+
+// Dynamic feature list update
+function updateFeatureLists(responseData) {
+  const features = responseData.features || {};
+  Object.entries(features).forEach(([key, value]) => {
+    const label = labelToResponseKeyMap[key] || key;
+    updateFeatureDisplay(label, value);
+  });
+}</code></pre>
+                    </div>
+
+                    <!-- Map Integration -->
+                    <div class="bg-white p-6 rounded-lg shadow mb-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Map Integration Enhancements</h3>
+                        <pre><code class="language-javascript">// Enhanced map initialization
+function initMap() {
+  debugUtils.info("Map", "Initializing Google Map");
+  try {
+    const mapOptions = {
+      zoom: 8,
+      center: { lat: 46.8182, lng: 8.2275 },
+      mapTypeControl: true,
+      streetViewControl: true,
+      fullscreenControl: true
+    };
+    const map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    window.map = map;
+  } catch (error) {
+    debugUtils.error("Map", "Error initializing map", { error });
+  }
+}</code></pre>
+                    </div>
+
+                    <!-- Address Handling -->
+                    <div class="bg-white p-6 rounded-lg shadow mb-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Address Handling Optimization</h3>
+                        <pre><code class="language-javascript">// Enhanced address input handling
+const handleAddressInput = debounce(async function () {
+  const address = document.getElementById("addressInput").value.trim();
+  debugUtils.info("Address", "Processing input", { address });
+  
+  if (address.length === 0) {
+    debugUtils.warn("Address", "Empty address input");
+    return;
+  }
+
+  try {
+    const possibleAddresses = await fetchDataGet(
+      `${possibleAddressEndpoint}?address=${encodeURIComponent(address)}`
+    );
+    updateDropdown(possibleAddresses);
+    resetFormValues();
+  } catch (error) {
+    debugUtils.error("Address", "Error fetching addresses", { error });
+  }
+}, 300);</code></pre>
                     </div>
                 </section>
 
@@ -188,8 +288,15 @@
                             </ul>
                         </div>
                         <div class="bg-white p-6 rounded-lg shadow">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Phase 2: Feature Enhancements (14 hours)</h3>
-                            <ul class="list-disc pl-5 text-gray-600">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Phase 2: Final Optimization (4 hours)</h3>
+                            <ul class="mt-2 list-disc pl-5 text-gray-600">
+                                <li>Address handling improvements (3 hours)</li>
+                                <li>Final testing and documentation (1 hour)</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Phase 3: Feature Enhancements (14 hours)</h3>
+                            <ul class="mt-2 list-disc pl-5 text-gray-600">
                                 <li>Feature list functionality (6 hours)</li>
                                 <li>Code optimization (5 hours)</li>
                                 <li>Map improvements (3 hours)</li>
@@ -288,19 +395,19 @@
                                     <li>Price calculation fixes (8 hours)</li>
                                 </ul>
                             </div>
+                            <div class="border-l-4 border-purple-500 pl-4">
+                                <h4 class="text-lg font-medium text-gray-900">Phase 2: Final Optimization (4 hours)</h4>
+                                <ul class="mt-2 list-disc pl-5 text-gray-600">
+                                    <li>Address handling improvements (3 hours)</li>
+                                    <li>Final testing and documentation (1 hour)</li>
+                                </ul>
+                            </div>
                             <div class="border-l-4 border-green-500 pl-4">
-                                <h4 class="text-lg font-medium text-gray-900">Phase 2: Feature Enhancements (14 hours)</h4>
+                                <h4 class="text-lg font-medium text-gray-900">Phase 3: Feature Enhancements (14 hours)</h4>
                                 <ul class="mt-2 list-disc pl-5 text-gray-600">
                                     <li>Feature list functionality (6 hours)</li>
                                     <li>Code optimization (5 hours)</li>
                                     <li>Map improvements (3 hours)</li>
-                                </ul>
-                            </div>
-                            <div class="border-l-4 border-purple-500 pl-4">
-                                <h4 class="text-lg font-medium text-gray-900">Phase 3: Final Optimization (4 hours)</h4>
-                                <ul class="mt-2 list-disc pl-5 text-gray-600">
-                                    <li>Address handling improvements (3 hours)</li>
-                                    <li>Final testing and documentation (1 hour)</li>
                                 </ul>
                             </div>
                         </div>
