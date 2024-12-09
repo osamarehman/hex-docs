@@ -1,7 +1,7 @@
 // Function to fetch and parse markdown content
 async function fetchAndParseMarkdown() {
     try {
-        const response = await fetch('weekly-tasks.md');
+        const response = await fetch("https://osamarehman.github.io/Hex-webflow-code/weekly-tasks.md");
         const markdownContent = await response.text();
         
         // Split content into progress summary and weekly tasks
