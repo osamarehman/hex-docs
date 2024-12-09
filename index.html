@@ -9,8 +9,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="css/styles.css" rel="stylesheet">
     <link href="css/output.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/marked@15.0.3/lib/marked.umd.min.js"></script>
-    <script src="js/markdown-parser.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-javascript.min.js"></script>
@@ -110,6 +108,9 @@
                         <img src="https://cdn.prod.website-files.com/6627744b33c005540d1e47b7/6627744b33c005540d1e4814_web-clip.png" alt="HEX Logo" class="h-8 w-8">
                         <h1 class="text-xl font-bold text-gray-900 hidden md:block">HEX - System Improvements</h1>
                         <h1 class="text-xl font-bold text-gray-900 md:hidden">HEX</h1>
+                        <div class="flex items-center space-x-4">
+                            <a href="weekly-progress.html" class="text-indigo-600 hover:text-indigo-900">Weekly Progress</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -134,103 +135,103 @@
             <a href="#limitations" onclick="handleNavClick(event, 'limitations')" class="group flex items-center px-2 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Known Limitations</a>
             <a href="#future" onclick="handleNavClick(event, 'future')" class="group flex items-center px-2 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Future Considerations</a>
             <a href="#code-comparison" onclick="handleNavClick(event, 'code-comparison')" class="group flex items-center px-2 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Code Comparison</a>
-            <a href="#weekly-tasks" onclick="handleNavClick(event, 'weekly-tasks')" class="group flex items-center px-2 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Weekly Progress</a>
         </nav>
     </div>
 
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <!-- Weekly Progress Summary -->
-        <div id="progress-summary" class="px-4 py-5 bg-white shadow rounded-lg mb-6">
-            <!-- Will be populated by markdown content -->
-        </div>
+    <main class="main-content transition-all duration-300 ease-in-out md:pl-64 pt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Weekly Progress Summary -->
+            <div id="progress-summary" class="px-4 py-5 bg-white shadow rounded-lg mb-6">
+                <!-- Will be populated by markdown content -->
+            </div>
 
-        <div class="px-4 py-6 sm:px-0">
-            <div class="prose max-w-none">
-                <section id="overview" class="mb-12">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Overview</h2>
-                    <p class="text-gray-600">This document outlines the improvements, optimizations, and bug fixes implemented in the transition from main-old.js to main-new.js. The focus was on enhancing system reliability, debugging capabilities, and user experience while maintaining core functionality.</p>
-                </section>
+            <div class="px-4 py-6 sm:px-0">
+                <div class="prose max-w-none">
+                    <section id="overview" class="mb-12">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Overview</h2>
+                        <p class="text-gray-600">This document outlines the improvements, optimizations, and bug fixes implemented in the transition from main-old.js to main-new.js. The focus was on enhancing system reliability, debugging capabilities, and user experience while maintaining core functionality.</p>
+                    </section>
 
-                <section id="improvements" class="mb-12">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Key Improvements</h2>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <section id="improvements" class="mb-12">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Key Improvements</h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Debug System -->
+                            <div class="bg-white p-6 rounded-lg shadow">
+                                <h3 class="text-xl font-semibold text-gray-900 mb-4">Debug System Implementation</h3>
+                                <ul class="list-disc pl-5 text-gray-600">
+                                    <li>Comprehensive logging with multiple levels</li>
+                                    <li>Category-based logging organization</li>
+                                    <li>Debug UI for development environment</li>
+                                </ul>
+                                <p class="mt-4 text-sm text-gray-500">Estimated Hours: 4 hours</p>
+                            </div>
+
+                            <!-- Price Calculation -->
+                            <div class="bg-white p-6 rounded-lg shadow">
+                                <h3 class="text-xl font-semibold text-gray-900 mb-4">Price Calculation Optimizations</h3>
+                                <ul class="list-disc pl-5 text-gray-600">
+                                    <li>Fixed calculation precision issues</li>
+                                    <li>Added PMT calculation helper function</li>
+                                    <li>Enhanced parameter validation</li>
+                                </ul>
+                                <p class="mt-4 text-sm text-gray-500">Estimated Hours: 8 hours</p>
+                            </div>
+
+                            <!-- Feature List -->
+                            <div class="bg-white p-6 rounded-lg shadow">
+                                <h3 class="text-xl font-semibold text-gray-900 mb-4">Feature List Enhancement</h3>
+                                <ul class="list-disc pl-5 text-gray-600">
+                                    <li>Dynamic feature display implementation</li>
+                                    <li>German label mapping</li>
+                                    <li>Enhanced product specifications</li>
+                                </ul>
+                                <p class="mt-4 text-sm text-gray-500">Estimated Hours: 6 hours</p>
+                            </div>
+
+                            <!-- Code Structure -->
+                            <div class="bg-white p-6 rounded-lg shadow">
+                                <h3 class="text-xl font-semibold text-gray-900 mb-4">Code Structure Optimization</h3>
+                                <ul class="list-disc pl-5 text-gray-600">
+                                    <li>Separated core functions</li>
+                                    <li>Improved function naming</li>
+                                    <li>Enhanced error handling</li>
+                                </ul>
+                                <p class="mt-4 text-sm text-gray-500">Estimated Hours: 5 hours</p>
+                            </div>
+
+                            <!-- Map Integration -->
+                            <div class="bg-white p-6 rounded-lg shadow">
+                                <h3 class="text-xl font-semibold text-gray-900 mb-4">Map Integration Improvements</h3>
+                                <ul class="list-disc pl-5 text-gray-600">
+                                    <li>Better coordinate conversion error handling</li>
+                                    <li>Additional map controls and initialization</li>
+                                    <li>Enhanced marker management</li>
+                                </ul>
+                                <p class="mt-4 text-sm text-gray-500">Estimated Hours: 4 hours</p>
+                            </div>
+
+                            <!-- Address Handling -->
+                            <div class="bg-white p-6 rounded-lg shadow">
+                                <h3 class="text-xl font-semibold text-gray-900 mb-4">Address Handling Optimization</h3>
+                                <ul class="list-disc pl-5 text-gray-600">
+                                    <li>Enhanced input validation</li>
+                                    <li>Improved dropdown management</li>
+                                    <li>Better error tracking for API calls</li>
+                                </ul>
+                                <p class="mt-4 text-sm text-gray-500">Estimated Hours: 3 hours</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="technical" class="mb-12">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Technical Details</h2>
+                        
                         <!-- Debug System -->
-                        <div class="bg-white p-6 rounded-lg shadow">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Debug System Implementation</h3>
-                            <ul class="list-disc pl-5 text-gray-600">
-                                <li>Comprehensive logging with multiple levels</li>
-                                <li>Category-based logging organization</li>
-                                <li>Debug UI for development environment</li>
-                            </ul>
-                            <p class="mt-4 text-sm text-gray-500">Estimated Hours: 4 hours</p>
-                        </div>
-
-                        <!-- Price Calculation -->
-                        <div class="bg-white p-6 rounded-lg shadow">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Price Calculation Optimizations</h3>
-                            <ul class="list-disc pl-5 text-gray-600">
-                                <li>Fixed calculation precision issues</li>
-                                <li>Added PMT calculation helper function</li>
-                                <li>Enhanced parameter validation</li>
-                            </ul>
-                            <p class="mt-4 text-sm text-gray-500">Estimated Hours: 8 hours</p>
-                        </div>
-
-                        <!-- Feature List -->
-                        <div class="bg-white p-6 rounded-lg shadow">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Feature List Enhancement</h3>
-                            <ul class="list-disc pl-5 text-gray-600">
-                                <li>Dynamic feature display implementation</li>
-                                <li>German label mapping</li>
-                                <li>Enhanced product specifications</li>
-                            </ul>
-                            <p class="mt-4 text-sm text-gray-500">Estimated Hours: 6 hours</p>
-                        </div>
-
-                        <!-- Code Structure -->
-                        <div class="bg-white p-6 rounded-lg shadow">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Code Structure Optimization</h3>
-                            <ul class="list-disc pl-5 text-gray-600">
-                                <li>Separated core functions</li>
-                                <li>Improved function naming</li>
-                                <li>Enhanced error handling</li>
-                            </ul>
-                            <p class="mt-4 text-sm text-gray-500">Estimated Hours: 5 hours</p>
-                        </div>
-
-                        <!-- Map Integration -->
-                        <div class="bg-white p-6 rounded-lg shadow">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Map Integration Improvements</h3>
-                            <ul class="list-disc pl-5 text-gray-600">
-                                <li>Better coordinate conversion error handling</li>
-                                <li>Additional map controls and initialization</li>
-                                <li>Enhanced marker management</li>
-                            </ul>
-                            <p class="mt-4 text-sm text-gray-500">Estimated Hours: 4 hours</p>
-                        </div>
-
-                        <!-- Address Handling -->
-                        <div class="bg-white p-6 rounded-lg shadow">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Address Handling Optimization</h3>
-                            <ul class="list-disc pl-5 text-gray-600">
-                                <li>Enhanced input validation</li>
-                                <li>Improved dropdown management</li>
-                                <li>Better error tracking for API calls</li>
-                            </ul>
-                            <p class="mt-4 text-sm text-gray-500">Estimated Hours: 3 hours</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="technical" class="mb-12">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Technical Details</h2>
-                    
-                    <!-- Debug System -->
-                    <div class="bg-white p-6 rounded-lg shadow mb-6">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Debug System Architecture</h3>
-                        <pre><code class="language-javascript">const debugUtils = {
+                        <div class="bg-white p-6 rounded-lg shadow mb-6">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Debug System Architecture</h3>
+                            <pre><code class="language-javascript">const debugUtils = {
   error: (category, message, data) => log(3, category, message, data),
   warn: (category, message, data) => log(2, category, message, data),
   info: (category, message, data) => log(1, category, message, data),
@@ -246,12 +247,12 @@ function handleAddressSelection(eingangId) {
     debugUtils.error("Address", "Error fetching house info", { error });
   }
 }</code></pre>
-                    </div>
+                        </div>
 
-                    <!-- Price Calculation -->
-                    <div class="bg-white p-6 rounded-lg shadow mb-6">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Price Calculation Improvements</h3>
-                        <pre><code class="language-javascript">// PMT (Payment) calculation helper function
+                        <!-- Price Calculation -->
+                        <div class="bg-white p-6 rounded-lg shadow mb-6">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Price Calculation Improvements</h3>
+                            <pre><code class="language-javascript">// PMT (Payment) calculation helper function
 function PMT(rate, nper, pv) {
   const pvif = Math.pow(1 + rate, nper);
   const pmt = (rate * pv * pvif) / (pvif - 1);
@@ -265,12 +266,12 @@ function validateCalculationParams(params) {
   if (params.years < 1) throw new Error("Invalid years");
   return true;
 }</code></pre>
-                    </div>
+                        </div>
 
-                    <!-- Feature List -->
-                    <div class="bg-white p-6 rounded-lg shadow mb-6">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Feature List Implementation</h3>
-                        <pre><code class="language-javascript">// German label mapping
+                        <!-- Feature List -->
+                        <div class="bg-white p-6 rounded-lg shadow mb-6">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Feature List Implementation</h3>
+                            <pre><code class="language-javascript">// German label mapping
 const labelToResponseKeyMap = {
   Hersteller: "manufactorer",
   Produkt: "productType",
@@ -285,12 +286,12 @@ function updateFeatureLists(responseData) {
     updateFeatureDisplay(label, value);
   });
 }</code></pre>
-                    </div>
+                        </div>
 
-                    <!-- Map Integration -->
-                    <div class="bg-white p-6 rounded-lg shadow mb-6">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Map Integration Enhancements</h3>
-                        <pre><code class="language-javascript">// Enhanced map initialization
+                        <!-- Map Integration -->
+                        <div class="bg-white p-6 rounded-lg shadow mb-6">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Map Integration Enhancements</h3>
+                            <pre><code class="language-javascript">// Enhanced map initialization
 function initMap() {
   debugUtils.info("Map", "Initializing Google Map");
   try {
@@ -307,12 +308,12 @@ function initMap() {
     debugUtils.error("Map", "Error initializing map", { error });
   }
 }</code></pre>
-                    </div>
+                        </div>
 
-                    <!-- Address Handling -->
-                    <div class="bg-white p-6 rounded-lg shadow mb-6">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Address Handling Optimization</h3>
-                        <pre><code class="language-javascript">// Enhanced address input handling
+                        <!-- Address Handling -->
+                        <div class="bg-white p-6 rounded-lg shadow mb-6">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Address Handling Optimization</h3>
+                            <pre><code class="language-javascript">// Enhanced address input handling
 const handleAddressInput = debounce(async function () {
   const address = document.getElementById("addressInput").value.trim();
   debugUtils.info("Address", "Processing input", { address });
@@ -332,136 +333,28 @@ const handleAddressInput = debounce(async function () {
     debugUtils.error("Address", "Error fetching addresses", { error });
   }
 }, 300);</code></pre>
-                    </div>
-                </section>
+                        </div>
+                    </section>
 
-                <section id="timeline" class="mb-12">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Development Timeline</h2>
-                    <div class="space-y-6">
-                        <div class="bg-white p-6 rounded-lg shadow">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Phase 1: Core Improvements (12 hours)</h3>
-                            <ul class="list-disc pl-5 text-gray-600">
-                                <li>Debug system implementation (4 hours)</li>
-                                <li>Price calculation fixes (8 hours)</li>
-                            </ul>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Phase 2: Final Optimization (4 hours)</h3>
-                            <ul class="mt-2 list-disc pl-5 text-gray-600">
-                                <li>Address handling improvements (3 hours)</li>
-                                <li>Final testing and documentation (1 hour)</li>
-                            </ul>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Phase 3: Feature Enhancements (14 hours)</h3>
-                            <ul class="mt-2 list-disc pl-5 text-gray-600">
-                                <li>Feature list functionality (6 hours)</li>
-                                <li>Code optimization (5 hours)</li>
-                                <li>Map improvements (3 hours)</li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="impact" class="mb-12">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Impact Analysis</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="bg-white p-6 rounded-lg shadow">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Performance Impact</h3>
-                            <ul class="list-disc pl-5 text-gray-600">
-                                <li>Improved response time</li>
-                                <li>Better memory management</li>
-                                <li>Reduced API calls</li>
-                            </ul>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-4">User Experience Impact</h3>
-                            <ul class="list-disc pl-5 text-gray-600">
-                                <li>Reliable calculations</li>
-                                <li>Better error messages</li>
-                                <li>Improved feature display</li>
-                            </ul>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Development Impact</h3>
-                            <ul class="list-disc pl-5 text-gray-600">
-                                <li>Enhanced debugging</li>
-                                <li>Better maintainability</li>
-                                <li>Improved error tracking</li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="limitations" class="mb-12">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Known Limitations</h2>
-                    <div class="bg-white p-6 rounded-lg shadow">
-                        <ul class="list-disc pl-5 text-gray-600">
-                            <li>Debug system adds minimal overhead in production</li>
-                            <li>Feature list updates require API response mapping maintenance</li>
-                            <li>Coordinate conversion remains computationally intensive</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section id="future" class="mb-12">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Future Considerations</h2>
-                    <div class="bg-white p-6 rounded-lg shadow">
-                        <ul class="list-disc pl-5 text-gray-600">
-                            <li>Further optimization of calculation engine</li>
-                            <li>Enhanced debug UI features</li>
-                            <li>Additional feature list categorization options</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section id="code-comparison" class="mb-12">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Code Comparison</h2>
-                    <div class="mb-4 flex space-x-4">
-                        <a href="https://osamarehman.github.io/Hex-webflow-code/main-old.js" target="_blank" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                            View main-old.js
-                            <svg class="ml-2 -mr-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                            </svg>
-                        </a>
-                        <a href="https://osamarehman.github.io/Hex-webflow-code/main-new.js" target="_blank" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                            View main-new.js
-                            <svg class="ml-2 -mr-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                            </svg>
-                        </a>
-                    </div>
-                    <div class="bg-gray-800 rounded-lg shadow-lg">
-                        <div class="code-tabs flex bg-gray-700">
-                            <button onclick="showCode('old')" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-white focus:outline-none active-tab" id="old-tab">main-old.js</button>
-                            <button onclick="showCode('new')" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-white focus:outline-none" id="new-tab">main-new.js</button>
-                        </div>
-                        <div class="code-content" id="old-code" style="display: block;">
-                            <pre><code class="language-javascript"></code></pre>
-                        </div>
-                        <div class="code-content" id="new-code" style="display: none;">
-                            <pre><code class="language-javascript"></code></pre>
-                        </div>
-                    </div>
-                    <div class="mt-6 bg-white p-6 rounded-lg shadow">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Development Timeline</h3>
-                        <div class="space-y-4">
-                            <div class="border-l-4 border-blue-500 pl-4">
-                                <h4 class="text-lg font-medium text-gray-900">Phase 1: Core Improvements (12 hours)</h4>
-                                <ul class="mt-2 list-disc pl-5 text-gray-600">
+                    <section id="timeline" class="mb-12">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Development Timeline</h2>
+                        <div class="space-y-6">
+                            <div class="bg-white p-6 rounded-lg shadow">
+                                <h3 class="text-xl font-semibold text-gray-900 mb-4">Phase 1: Core Improvements (12 hours)</h3>
+                                <ul class="list-disc pl-5 text-gray-600">
                                     <li>Debug system implementation (4 hours)</li>
                                     <li>Price calculation fixes (8 hours)</li>
                                 </ul>
                             </div>
-                            <div class="border-l-4 border-purple-500 pl-4">
-                                <h4 class="text-lg font-medium text-gray-900">Phase 2: Final Optimization (4 hours)</h4>
+                            <div class="bg-white p-6 rounded-lg shadow">
+                                <h3 class="text-xl font-semibold text-gray-900 mb-4">Phase 2: Final Optimization (4 hours)</h3>
                                 <ul class="mt-2 list-disc pl-5 text-gray-600">
                                     <li>Address handling improvements (3 hours)</li>
                                     <li>Final testing and documentation (1 hour)</li>
                                 </ul>
                             </div>
-                            <div class="border-l-4 border-green-500 pl-4">
-                                <h4 class="text-lg font-medium text-gray-900">Phase 3: Feature Enhancements (14 hours)</h4>
+                            <div class="bg-white p-6 rounded-lg shadow">
+                                <h3 class="text-xl font-semibold text-gray-900 mb-4">Phase 3: Feature Enhancements (14 hours)</h3>
                                 <ul class="mt-2 list-disc pl-5 text-gray-600">
                                     <li>Feature list functionality (6 hours)</li>
                                     <li>Code optimization (5 hours)</li>
@@ -469,62 +362,120 @@ const handleAddressInput = debounce(async function () {
                                 </ul>
                             </div>
                         </div>
-                        <div class="mt-4 p-4 bg-gray-50 rounded-md">
-                            <p class="text-sm text-gray-600">Total Development Time: 30 hours</p>
+                    </section>
+
+                    <section id="impact" class="mb-12">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Impact Analysis</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="bg-white p-6 rounded-lg shadow">
+                                <h3 class="text-xl font-semibold text-gray-900 mb-4">Performance Impact</h3>
+                                <ul class="list-disc pl-5 text-gray-600">
+                                    <li>Improved response time</li>
+                                    <li>Better memory management</li>
+                                    <li>Reduced API calls</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-6 rounded-lg shadow">
+                                <h3 class="text-xl font-semibold text-gray-900 mb-4">User Experience Impact</h3>
+                                <ul class="list-disc pl-5 text-gray-600">
+                                    <li>Reliable calculations</li>
+                                    <li>Better error messages</li>
+                                    <li>Improved feature display</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-6 rounded-lg shadow">
+                                <h3 class="text-xl font-semibold text-gray-900 mb-4">Development Impact</h3>
+                                <ul class="list-disc pl-5 text-gray-600">
+                                    <li>Enhanced debugging</li>
+                                    <li>Better maintainability</li>
+                                    <li>Improved error tracking</li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
 
-                <section id="weekly-tasks" class="mb-12">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Weekly Progress</h2>
-                    
-                    <!-- Tabs -->
-                    <div class="mb-4 border-b border-gray-200">
-                        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" role="tablist">
-                            <li class="mr-2" role="presentation">
-                                <button class="tab-button inline-block p-4 border-b-2 rounded-t-lg active-tab" 
-                                        id="week1-tab" 
-                                        data-tabs-target="#week1" 
-                                        type="button" 
-                                        role="tab" 
-                                        aria-controls="week1" 
-                                        aria-selected="true"
-                                        onclick="switchTab('week1')">
-                                    Week 1 (Dec 2-7)
-                                </button>
-                            </li>
-                            <li class="mr-2" role="presentation">
-                                <button class="tab-button inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600" 
-                                        id="week2-tab" 
-                                        data-tabs-target="#week2" 
-                                        type="button" 
-                                        role="tab" 
-                                        aria-controls="week2" 
-                                        aria-selected="false"
-                                        onclick="switchTab('week2')">
-                                    Week 2 (Dec 9-14)
-                                </button>
-                            </li>
-                            <li class="mr-2" role="presentation">
-                                <button class="tab-button inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600" 
-                                        id="week3-tab" 
-                                        data-tabs-target="#week3" 
-                                        type="button" 
-                                        role="tab" 
-                                        aria-controls="week3" 
-                                        aria-selected="false"
-                                        onclick="switchTab('week3')">
-                                    Week 3 (Dec 16-21)
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
+                    <section id="limitations" class="mb-12">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Known Limitations</h2>
+                        <div class="bg-white p-6 rounded-lg shadow">
+                            <ul class="list-disc pl-5 text-gray-600">
+                                <li>Debug system adds minimal overhead in production</li>
+                                <li>Feature list updates require API response mapping maintenance</li>
+                                <li>Coordinate conversion remains computationally intensive</li>
+                            </ul>
+                        </div>
+                    </section>
 
-                    <!-- Tab Content -->
-                    <div id="weeks-container" class="mt-4">
-                        <!-- Content will be dynamically loaded from markdown -->
-                    </div>
-                </section>
+                    <section id="future" class="mb-12">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Future Considerations</h2>
+                        <div class="bg-white p-6 rounded-lg shadow">
+                            <ul class="list-disc pl-5 text-gray-600">
+                                <li>Further optimization of calculation engine</li>
+                                <li>Enhanced debug UI features</li>
+                                <li>Additional feature list categorization options</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section id="code-comparison" class="mb-12">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Code Comparison</h2>
+                        <div class="mb-4 flex space-x-4">
+                            <a href="https://osamarehman.github.io/Hex-webflow-code/main-old.js" target="_blank" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                View main-old.js
+                                <svg class="ml-2 -mr-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                </svg>
+                            </a>
+                            <a href="https://osamarehman.github.io/Hex-webflow-code/main-new.js" target="_blank" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                                View main-new.js
+                                <svg class="ml-2 -mr-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="bg-gray-800 rounded-lg shadow-lg">
+                            <div class="code-tabs flex bg-gray-700">
+                                <button onclick="showCode('old')" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-white focus:outline-none active-tab" id="old-tab">main-old.js</button>
+                                <button onclick="showCode('new')" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-white focus:outline-none" id="new-tab">main-new.js</button>
+                            </div>
+                            <div class="code-content" id="old-code" style="display: block;">
+                                <pre><code class="language-javascript"></code></pre>
+                            </div>
+                            <div class="code-content" id="new-code" style="display: none;">
+                                <pre><code class="language-javascript"></code></pre>
+                            </div>
+                        </div>
+                        <div class="mt-6 bg-white p-6 rounded-lg shadow">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Development Timeline</h3>
+                            <div class="space-y-4">
+                                <div class="border-l-4 border-blue-500 pl-4">
+                                    <h4 class="text-lg font-medium text-gray-900">Phase 1: Core Improvements (12 hours)</h4>
+                                    <ul class="mt-2 list-disc pl-5 text-gray-600">
+                                        <li>Debug system implementation (4 hours)</li>
+                                        <li>Price calculation fixes (8 hours)</li>
+                                    </ul>
+                                </div>
+                                <div class="border-l-4 border-purple-500 pl-4">
+                                    <h4 class="text-lg font-medium text-gray-900">Phase 2: Final Optimization (4 hours)</h4>
+                                    <ul class="mt-2 list-disc pl-5 text-gray-600">
+                                        <li>Address handling improvements (3 hours)</li>
+                                        <li>Final testing and documentation (1 hour)</li>
+                                    </ul>
+                                </div>
+                                <div class="border-l-4 border-green-500 pl-4">
+                                    <h4 class="text-lg font-medium text-gray-900">Phase 3: Feature Enhancements (14 hours)</h4>
+                                    <ul class="mt-2 list-disc pl-5 text-gray-600">
+                                        <li>Feature list functionality (6 hours)</li>
+                                        <li>Code optimization (5 hours)</li>
+                                        <li>Map improvements (3 hours)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="mt-4 p-4 bg-gray-50 rounded-md">
+                                <p class="text-sm text-gray-600">Total Development Time: 30 hours</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
             </div>
         </div>
     </main>
@@ -661,23 +612,6 @@ const handleAddressInput = debounce(async function () {
             selectedTab.classList.add('active-tab');
             selectedTab.setAttribute('aria-selected', 'true');
         }
-
-        // Load markdown content
-        async function loadMarkdownContent() {
-            try {
-                const markdownResponse = await fetch('https://osamarehman.github.io/Hex-webflow-code/weekly-tasks.md');
-                const markdownContent = await markdownResponse.text();
-                
-                const htmlContent = marked(markdownContent);
-                
-                document.getElementById('weeks-container').innerHTML = htmlContent;
-            } catch (error) {
-                console.error('Error loading markdown content:', error);
-            }
-        }
-
-        // Load markdown content when the page loads
-        window.addEventListener('DOMContentLoaded', loadMarkdownContent);
     </script>
 </body>
 </html>

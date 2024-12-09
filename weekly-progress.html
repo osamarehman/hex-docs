@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Progress Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="css/output.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked@15.0.3/lib/marked.umd.min.js"></script>
+    <script src="js/markdown-parser.js"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen bg-gray-100">
+        <header class="bg-white shadow">
+            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <h1 class="text-3xl font-bold text-gray-900">Weekly Progress Tracker</h1>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+            <div class="px-4 py-6 sm:px-0">
+                <div class="bg-white overflow-hidden shadow rounded-lg divide-y divide-gray-200">
+                    <div class="px-4 py-5 sm:p-6">
+                        <!-- Tab navigation -->
+                        <div class="border-b border-gray-200">
+                            <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                                <button id="week1-tab" role="tab" aria-controls="week1" aria-selected="true"
+                                    class="border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                                    Week 1
+                                </button>
+                                <button id="week2-tab" role="tab" aria-controls="week2" aria-selected="false"
+                                    class="border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                                    Week 2
+                                </button>
+                            </nav>
+                        </div>
+
+                        <!-- Weekly Tasks Content -->
+                        <div id="weeks-container" class="mt-4">
+                            <!-- Will be populated by markdown content -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
