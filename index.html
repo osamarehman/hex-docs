@@ -31,9 +31,11 @@
             overflow: hidden;
         }
         .code-content {
-            max-height: 500px;
+            height: 800px;
             overflow-y: auto;
             border-radius: 0 0 0.5rem 0.5rem;
+            resize: vertical;
+            min-height: 400px;
         }
         .code-content::-webkit-scrollbar {
             width: 8px;
@@ -53,9 +55,36 @@
             background-color: #1e1e1e;
             color: #fff;
         }
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            .code-content {
+                height: 400px;
+            }
+            .menu-button {
+                display: block;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50">
+    <!-- Mobile Menu Button -->
+    <button class="menu-button fixed top-4 right-4 z-50 p-2 rounded-md bg-white shadow-lg md:hidden" onclick="toggleSidebar()">
+        <svg class="w-6 h-6 menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+    </button>
+
     <!-- Navigation -->
     <nav class="bg-white shadow-sm fixed w-full z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -63,7 +92,8 @@
                 <div class="flex">
                     <div class="flex-shrink-0 flex items-center space-x-3">
                         <img src="https://cdn.prod.website-files.com/6627744b33c005540d1e47b7/6627744b33c005540d1e4814_web-clip.png" alt="HEX Logo" class="h-8 w-8">
-                        <h1 class="text-xl font-bold text-gray-900">HEX - System Improvements</h1>
+                        <h1 class="text-xl font-bold text-gray-900 hidden md:block">HEX - System Improvements</h1>
+                        <h1 class="text-xl font-bold text-gray-900 md:hidden">HEX</h1>
                     </div>
                 </div>
             </div>
@@ -71,7 +101,13 @@
     </nav>
 
     <!-- Sidebar -->
-    <div class="fixed inset-y-0 left-0 pt-16 w-64 bg-white shadow-sm overflow-y-auto">
+    <div class="sidebar fixed top-0 left-0 h-full w-64 bg-white shadow-lg transition-transform duration-300 ease-in-out z-20">
+        <!-- Close button for mobile -->
+        <button class="absolute top-4 right-4 p-2 rounded-md hover:bg-gray-100 md:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
         <nav class="mt-5 px-2 space-y-1">
             <a href="#overview" class="group flex items-center px-2 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Overview</a>
             <a href="#improvements" class="group flex items-center px-2 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Key Improvements</a>
@@ -86,7 +122,7 @@
     </div>
 
     <!-- Main Content -->
-    <main class="pl-64 pt-16">
+    <main class="main-content pt-16 transition-all duration-300 ease-in-out md:pl-64">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="prose max-w-none">
                 <section id="overview" class="mb-12">
@@ -423,6 +459,50 @@ const handleAddressInput = debounce(async function () {
     <script>
         // Highlight code blocks
         Prism.highlightAll();
+
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const menuButton = document.querySelector('.menu-button');
+            
+            sidebar.classList.toggle('open');
+            
+            // Toggle body scroll
+            if (sidebar.classList.contains('open')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+            
+            // Toggle menu button icon
+            const menuIcon = menuButton.querySelector('.menu-icon');
+            if (sidebar.classList.contains('open')) {
+                menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+            } else {
+                menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>';
+            }
+        }
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.querySelector('.sidebar');
+            const menuButton = document.querySelector('.menu-button');
+            if (window.innerWidth <= 768 && 
+                !sidebar.contains(event.target) && 
+                !menuButton.contains(event.target) && 
+                sidebar.classList.contains('open')) {
+                toggleSidebar();
+            }
+        });
+
+        // Resize handler for responsive layout
+        window.addEventListener('resize', function() {
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content');
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('open');
+                mainContent.classList.remove('ml-64');
+            }
+        });
 
         // Load and inject the JavaScript files
         async function loadJavaScriptFiles() {
