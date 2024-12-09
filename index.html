@@ -109,7 +109,7 @@
                         <h1 class="text-xl font-bold text-gray-900 hidden md:block">HEX - System Improvements</h1>
                         <h1 class="text-xl font-bold text-gray-900 md:hidden">HEX</h1>
                         <div class="flex items-center space-x-4">
-                            <a href="weekly-progress.html" class="text-indigo-600 hover:text-indigo-900">Weekly Progress</a>
+                            <a href="/weekly-progress.html" class="text-indigo-600 hover:text-indigo-900">Weekly Progress</a>
                         </div>
                     </div>
                 </div>
@@ -559,10 +559,14 @@ const handleAddressInput = debounce(async function () {
         // Smooth scroll for navigation
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const href = this.getAttribute('href');
+                // Only handle internal anchor links
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
 
