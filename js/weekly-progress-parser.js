@@ -1,7 +1,7 @@
 // Function to fetch and parse markdown content for weekly progress
 async function fetchAndParseWeeklyProgress() {
     try {
-        const response = await fetch('weekly-tasks.md');
+        const response = await fetch('https://osamarehman.github.io/Hex-webflow-code/weekly-tasks.md');
         const markdownContent = await response.text();
         
         // Get the weeks container
