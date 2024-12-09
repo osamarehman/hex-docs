@@ -252,66 +252,61 @@
 
                 <section id="code-comparison" class="mb-12">
                     <h2 class="text-3xl font-bold text-gray-900 mb-6">Code Comparison</h2>
+                    <div class="mb-4 flex space-x-4">
+                        <a href="https://osamarehman.github.io/Hex-webflow-code/main-old.js" target="_blank" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            View main-old.js
+                            <svg class="ml-2 -mr-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                            </svg>
+                        </a>
+                        <a href="https://osamarehman.github.io/Hex-webflow-code/main-new.js" target="_blank" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                            View main-new.js
+                            <svg class="ml-2 -mr-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                            </svg>
+                        </a>
+                    </div>
                     <div class="bg-gray-800 rounded-lg shadow-lg">
                         <div class="code-tabs flex bg-gray-700">
                             <button onclick="showCode('old')" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-white focus:outline-none active-tab" id="old-tab">main-old.js</button>
                             <button onclick="showCode('new')" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-white focus:outline-none" id="new-tab">main-new.js</button>
                         </div>
                         <div class="code-content" id="old-code" style="display: block;">
-                            <pre><code class="language-javascript">// main-old.js
-function CHtoWGSlat(y, x) {
-    const y_aux = (y - 2600000) / 1000000;
-    const x_aux = (x - 1200000) / 1000000;
-  
-    let lat =
-      16.9023892 +
-      3.238272 * x_aux -
-      0.270978 * Math.pow(y_aux, 2) -
-      0.002528 * Math.pow(x_aux, 2) -
-      0.0447 * Math.pow(y_aux, 2) * x_aux -
-      0.014 * Math.pow(x_aux, 3);
-  
-    lat = (lat * 100) / 36;
-    return lat;
-}
-
-// ... More code from main-old.js ...
-// Note: Abbreviated for display purposes. See full code in repository.</code></pre>
+                            <pre><code class="language-javascript"></code></pre>
                         </div>
                         <div class="code-content" id="new-code" style="display: none;">
-                            <pre><code class="language-javascript">// main-new.js
-console.log("initialized");
-debug.setLevel(1); // Enable logging (0 would disable it)
-
-function CHtoWGSlat(y, x) {
-    const y_aux = (y - 2600000) / 1000000;
-    const x_aux = (x - 1200000) / 1000000;
-  
-    let lat =
-      16.9023892 +
-      3.238272 * x_aux -
-      0.270978 * Math.pow(y_aux, 2) -
-      0.002528 * Math.pow(x_aux, 2) -
-      0.0447 * Math.pow(y_aux, 2) * x_aux -
-      0.014 * Math.pow(x_aux, 3);
-  
-    lat = (lat * 100) / 36;
-    return lat;
-}
-
-// ... More code from main-new.js ...
-// Note: Abbreviated for display purposes. See full code in repository.</code></pre>
+                            <pre><code class="language-javascript"></code></pre>
                         </div>
                     </div>
                     <div class="mt-6 bg-white p-6 rounded-lg shadow">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Key Differences</h3>
-                        <ul class="list-disc pl-5 text-gray-600 space-y-2">
-                            <li>Added debug logging system and initialization</li>
-                            <li>Enhanced error handling in API calls and calculations</li>
-                            <li>Improved code organization and function separation</li>
-                            <li>Added feature list functionality and German label mapping</li>
-                            <li>Optimized coordinate conversion and map handling</li>
-                        </ul>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Development Timeline</h3>
+                        <div class="space-y-4">
+                            <div class="border-l-4 border-blue-500 pl-4">
+                                <h4 class="text-lg font-medium text-gray-900">Phase 1: Core Improvements (12 hours)</h4>
+                                <ul class="mt-2 list-disc pl-5 text-gray-600">
+                                    <li>Debug system implementation (4 hours)</li>
+                                    <li>Price calculation fixes (8 hours)</li>
+                                </ul>
+                            </div>
+                            <div class="border-l-4 border-green-500 pl-4">
+                                <h4 class="text-lg font-medium text-gray-900">Phase 2: Feature Enhancements (14 hours)</h4>
+                                <ul class="mt-2 list-disc pl-5 text-gray-600">
+                                    <li>Feature list functionality (6 hours)</li>
+                                    <li>Code optimization (5 hours)</li>
+                                    <li>Map improvements (3 hours)</li>
+                                </ul>
+                            </div>
+                            <div class="border-l-4 border-purple-500 pl-4">
+                                <h4 class="text-lg font-medium text-gray-900">Phase 3: Final Optimization (4 hours)</h4>
+                                <ul class="mt-2 list-disc pl-5 text-gray-600">
+                                    <li>Address handling improvements (3 hours)</li>
+                                    <li>Final testing and documentation (1 hour)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-4 p-4 bg-gray-50 rounded-md">
+                            <p class="text-sm text-gray-600">Total Development Time: 30 hours</p>
+                        </div>
                     </div>
                 </section>
             </div>
@@ -321,6 +316,28 @@ function CHtoWGSlat(y, x) {
     <script>
         // Highlight code blocks
         Prism.highlightAll();
+
+        // Load and inject the JavaScript files
+        async function loadJavaScriptFiles() {
+            try {
+                const oldJsResponse = await fetch('https://osamarehman.github.io/Hex-webflow-code/main-old.js');
+                const newJsResponse = await fetch('https://osamarehman.github.io/Hex-webflow-code/main-new.js');
+                
+                const oldJsContent = await oldJsResponse.text();
+                const newJsContent = await newJsResponse.text();
+                
+                document.querySelector('#old-code code').textContent = oldJsContent;
+                document.querySelector('#new-code code').textContent = newJsContent;
+                
+                // Rehighlight the code
+                Prism.highlightAll();
+            } catch (error) {
+                console.error('Error loading JavaScript files:', error);
+            }
+        }
+
+        // Load the files when the page loads
+        window.addEventListener('DOMContentLoaded', loadJavaScriptFiles);
 
         // Code tab switching
         function showCode(type) {
