@@ -3,24 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRD Improvements Documentation</title>
+    <title>HEX - System Improvements</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-javascript.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
         body {
             font-family: 'Inter', sans-serif;
         }
         .prose pre {
-            background: #1a1a1a;
+            background: #1e1e1e;
             border-radius: 0.5rem;
-            padding: 1rem;
+            padding: 1.5rem;
             margin: 1rem 0;
+            font-family: 'Fira Code', monospace;
         }
         .prose code {
             color: #e2e8f0;
+            font-family: 'Fira Code', monospace;
+        }
+        .code-tabs {
+            border-radius: 0.5rem 0.5rem 0 0;
+            overflow: hidden;
+        }
+        .code-content {
+            max-height: 500px;
+            overflow-y: auto;
+            border-radius: 0 0 0.5rem 0.5rem;
+        }
+        .code-content::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .code-content::-webkit-scrollbar-track {
+            background: #2d2d2d;
+        }
+        .code-content::-webkit-scrollbar-thumb {
+            background: #666;
+            border-radius: 4px;
+        }
+        .code-content::-webkit-scrollbar-thumb:hover {
+            background: #888;
+        }
+        .active-tab {
+            background-color: #1e1e1e;
+            color: #fff;
         }
     </style>
 </head>
@@ -30,8 +59,9 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex">
-                    <div class="flex-shrink-0 flex items-center">
-                        <h1 class="text-xl font-bold text-gray-900">PRD Improvements</h1>
+                    <div class="flex-shrink-0 flex items-center space-x-3">
+                        <img src="https://cdn.prod.website-files.com/6627744b33c005540d1e47b7/6627744b33c005540d1e4814_web-clip.png" alt="HEX Logo" class="h-8 w-8">
+                        <h1 class="text-xl font-bold text-gray-900">HEX - System Improvements</h1>
                     </div>
                 </div>
             </div>
@@ -49,6 +79,7 @@
             <a href="#impact" class="group flex items-center px-2 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Impact Analysis</a>
             <a href="#limitations" class="group flex items-center px-2 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Known Limitations</a>
             <a href="#future" class="group flex items-center px-2 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Future Considerations</a>
+            <a href="#code-comparison" class="group flex items-center px-2 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Code Comparison</a>
         </nav>
     </div>
 
@@ -81,8 +112,8 @@
                             <h3 class="text-xl font-semibold text-gray-900 mb-4">Price Calculation Optimizations</h3>
                             <ul class="list-disc pl-5 text-gray-600">
                                 <li>Fixed calculation precision issues</li>
-                                <li>Improved validation of parameters</li>
-                                <li>Enhanced error handling</li>
+                                <li>Added PMT calculation helper function</li>
+                                <li>Enhanced parameter validation</li>
                             </ul>
                             <p class="mt-4 text-sm text-gray-500">Estimated Hours: 8 hours</p>
                         </div>
@@ -107,6 +138,28 @@
                                 <li>Enhanced error handling</li>
                             </ul>
                             <p class="mt-4 text-sm text-gray-500">Estimated Hours: 5 hours</p>
+                        </div>
+
+                        <!-- Map Integration -->
+                        <div class="bg-white p-6 rounded-lg shadow">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Map Integration Improvements</h3>
+                            <ul class="list-disc pl-5 text-gray-600">
+                                <li>Better coordinate conversion error handling</li>
+                                <li>Additional map controls and initialization</li>
+                                <li>Enhanced marker management</li>
+                            </ul>
+                            <p class="mt-4 text-sm text-gray-500">Estimated Hours: 4 hours</p>
+                        </div>
+
+                        <!-- Address Handling -->
+                        <div class="bg-white p-6 rounded-lg shadow">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4">Address Handling Optimization</h3>
+                            <ul class="list-disc pl-5 text-gray-600">
+                                <li>Enhanced input validation</li>
+                                <li>Improved dropdown management</li>
+                                <li>Better error tracking for API calls</li>
+                            </ul>
+                            <p class="mt-4 text-sm text-gray-500">Estimated Hours: 3 hours</p>
                         </div>
                     </div>
                 </section>
@@ -196,6 +249,71 @@
                         </ul>
                     </div>
                 </section>
+
+                <section id="code-comparison" class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Code Comparison</h2>
+                    <div class="bg-gray-800 rounded-lg shadow-lg">
+                        <div class="code-tabs flex bg-gray-700">
+                            <button onclick="showCode('old')" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-white focus:outline-none active-tab" id="old-tab">main-old.js</button>
+                            <button onclick="showCode('new')" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-white focus:outline-none" id="new-tab">main-new.js</button>
+                        </div>
+                        <div class="code-content" id="old-code" style="display: block;">
+                            <pre><code class="language-javascript">// main-old.js
+function CHtoWGSlat(y, x) {
+    const y_aux = (y - 2600000) / 1000000;
+    const x_aux = (x - 1200000) / 1000000;
+  
+    let lat =
+      16.9023892 +
+      3.238272 * x_aux -
+      0.270978 * Math.pow(y_aux, 2) -
+      0.002528 * Math.pow(x_aux, 2) -
+      0.0447 * Math.pow(y_aux, 2) * x_aux -
+      0.014 * Math.pow(x_aux, 3);
+  
+    lat = (lat * 100) / 36;
+    return lat;
+}
+
+// ... More code from main-old.js ...
+// Note: Abbreviated for display purposes. See full code in repository.</code></pre>
+                        </div>
+                        <div class="code-content" id="new-code" style="display: none;">
+                            <pre><code class="language-javascript">// main-new.js
+console.log("initialized");
+debug.setLevel(1); // Enable logging (0 would disable it)
+
+function CHtoWGSlat(y, x) {
+    const y_aux = (y - 2600000) / 1000000;
+    const x_aux = (x - 1200000) / 1000000;
+  
+    let lat =
+      16.9023892 +
+      3.238272 * x_aux -
+      0.270978 * Math.pow(y_aux, 2) -
+      0.002528 * Math.pow(x_aux, 2) -
+      0.0447 * Math.pow(y_aux, 2) * x_aux -
+      0.014 * Math.pow(x_aux, 3);
+  
+    lat = (lat * 100) / 36;
+    return lat;
+}
+
+// ... More code from main-new.js ...
+// Note: Abbreviated for display purposes. See full code in repository.</code></pre>
+                        </div>
+                    </div>
+                    <div class="mt-6 bg-white p-6 rounded-lg shadow">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Key Differences</h3>
+                        <ul class="list-disc pl-5 text-gray-600 space-y-2">
+                            <li>Added debug logging system and initialization</li>
+                            <li>Enhanced error handling in API calls and calculations</li>
+                            <li>Improved code organization and function separation</li>
+                            <li>Added feature list functionality and German label mapping</li>
+                            <li>Optimized coordinate conversion and map handling</li>
+                        </ul>
+                    </div>
+                </section>
             </div>
         </div>
     </main>
@@ -203,6 +321,15 @@
     <script>
         // Highlight code blocks
         Prism.highlightAll();
+
+        // Code tab switching
+        function showCode(type) {
+            document.getElementById('old-code').style.display = type === 'old' ? 'block' : 'none';
+            document.getElementById('new-code').style.display = type === 'new' ? 'block' : 'none';
+            
+            document.getElementById('old-tab').classList.toggle('active-tab', type === 'old');
+            document.getElementById('new-tab').classList.toggle('active-tab', type === 'new');
+        }
 
         // Smooth scroll for navigation
         document.querySelectorAll('nav a').forEach(anchor => {
