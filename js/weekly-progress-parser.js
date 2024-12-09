@@ -40,7 +40,12 @@ async function fetchAndParseWeeklyProgress() {
             // Process tables in this section
             const tables = tabPanel.getElementsByTagName('table');
             Array.from(tables).forEach(table => {
-                table.className = 'min-w-full divide-y divide-gray-200 mt-4';
+                // Create a container for the table
+                const tableContainer = document.createElement('div');
+                tableContainer.className = 'table-container my-4';
+                
+                // Style the table
+                table.className = 'min-w-full divide-y divide-gray-200';
                 
                 // Style table header
                 const thead = table.getElementsByTagName('thead')[0];
@@ -61,8 +66,12 @@ async function fetchAndParseWeeklyProgress() {
                 });
                 
                 Array.from(table.getElementsByTagName('td')).forEach(td => {
-                    td.className = 'px-6 py-4 whitespace-nowrap text-sm text-gray-900';
+                    td.className = 'px-6 py-4 text-sm text-gray-900';
                 });
+
+                // Wrap table in container
+                table.parentNode.insertBefore(tableContainer, table);
+                tableContainer.appendChild(table);
             });
             
             weeksContainer.appendChild(tabPanel);

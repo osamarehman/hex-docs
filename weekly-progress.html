@@ -9,6 +9,45 @@
     <link href="css/output.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked@15.0.3/lib/marked.umd.min.js"></script>
     <script src="js/weekly-progress-parser.js"></script>
+    <style>
+        /* Custom styles for table responsiveness */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .table-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .table-container {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        /* Ensure table cells don't wrap unnecessarily */
+        .table-container td {
+            white-space: nowrap;
+            padding: 0.75rem 1rem;
+        }
+
+        /* Allow notes column to wrap */
+        .table-container td:last-child {
+            white-space: normal;
+            min-width: 200px;
+            max-width: 300px;
+        }
+
+        /* Style for the tabs container */
+        .tab-content {
+            max-height: calc(100vh - 300px);
+            overflow-y: auto;
+            padding: 1rem;
+        }
+    </style>
 </head>
 <body class="bg-gray-100">
     <div class="min-h-screen bg-gray-100">
@@ -49,7 +88,7 @@
                         </div>
 
                         <!-- Weekly Tasks Content -->
-                        <div id="weeks-container" class="mt-4 prose max-w-none">
+                        <div id="weeks-container" class="mt-4 prose max-w-none tab-content">
                             <!-- Will be populated by markdown content -->
                         </div>
                     </div>
