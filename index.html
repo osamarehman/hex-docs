@@ -7,6 +7,8 @@
     <link href="https://cdn.prod.website-files.com/6627744b33c005540d1e47b7/6627744b33c005540d1e4813_fav-icon.png" rel="shortcut icon" type="image/x-icon"/>
     <link href="https://cdn.prod.website-files.com/6627744b33c005540d1e47b7/6627744b33c005540d1e4814_web-clip.png" rel="apple-touch-icon"/>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="js/markdown-parser.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-javascript.min.js"></script>
@@ -52,8 +54,15 @@
             background: #888;
         }
         .active-tab {
-            background-color: #1e1e1e;
-            color: #fff;
+            background-color: #EEF2FF;
+            color: #4F46E5;
+            border-color: #4F46E5;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .tab-button:hover {
+            background-color: #F3F4F6;
         }
         @media (max-width: 768px) {
             .sidebar {
@@ -123,6 +132,7 @@
             <a href="#limitations" onclick="handleNavClick(event, 'limitations')" class="group flex items-center px-2 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Known Limitations</a>
             <a href="#future" onclick="handleNavClick(event, 'future')" class="group flex items-center px-2 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Future Considerations</a>
             <a href="#code-comparison" onclick="handleNavClick(event, 'code-comparison')" class="group flex items-center px-2 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Code Comparison</a>
+            <a href="#weekly-tasks" onclick="handleNavClick(event, 'weekly-tasks')" class="group flex items-center px-2 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Weekly Progress</a>
         </nav>
     </div>
 
@@ -457,6 +467,57 @@ const handleAddressInput = debounce(async function () {
                         </div>
                     </div>
                 </section>
+
+                <section id="weekly-tasks" class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Weekly Progress</h2>
+                    
+                    <!-- Tabs -->
+                    <div class="mb-4 border-b border-gray-200">
+                        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" role="tablist">
+                            <li class="mr-2" role="presentation">
+                                <button class="tab-button inline-block p-4 border-b-2 rounded-t-lg active-tab" 
+                                        id="week1-tab" 
+                                        data-tabs-target="#week1" 
+                                        type="button" 
+                                        role="tab" 
+                                        aria-controls="week1" 
+                                        aria-selected="true"
+                                        onclick="switchTab('week1')">
+                                    Week 1 (Dec 2-7)
+                                </button>
+                            </li>
+                            <li class="mr-2" role="presentation">
+                                <button class="tab-button inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600" 
+                                        id="week2-tab" 
+                                        data-tabs-target="#week2" 
+                                        type="button" 
+                                        role="tab" 
+                                        aria-controls="week2" 
+                                        aria-selected="false"
+                                        onclick="switchTab('week2')">
+                                    Week 2 (Dec 9-14)
+                                </button>
+                            </li>
+                            <li class="mr-2" role="presentation">
+                                <button class="tab-button inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600" 
+                                        id="week3-tab" 
+                                        data-tabs-target="#week3" 
+                                        type="button" 
+                                        role="tab" 
+                                        aria-controls="week3" 
+                                        aria-selected="false"
+                                        onclick="switchTab('week3')">
+                                    Week 3 (Dec 16-21)
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div id="weeks-container" class="mt-4">
+                        <!-- Content will be dynamically loaded from markdown -->
+                    </div>
+                </section>
             </div>
         </div>
     </main>
@@ -569,6 +630,47 @@ const handleAddressInput = debounce(async function () {
                 behavior: 'smooth'
             });
         }
+
+        function switchTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+                content.classList.add('hidden');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('[role="tab"]').forEach(tab => {
+                tab.classList.remove('active-tab');
+                tab.setAttribute('aria-selected', 'false');
+            });
+            
+            // Show selected tab content
+            const selectedContent = document.getElementById(tabId);
+            selectedContent.classList.remove('hidden');
+            selectedContent.classList.add('active');
+            
+            // Set selected tab as active
+            const selectedTab = document.getElementById(tabId + '-tab');
+            selectedTab.classList.add('active-tab');
+            selectedTab.setAttribute('aria-selected', 'true');
+        }
+
+        // Load markdown content
+        async function loadMarkdownContent() {
+            try {
+                const markdownResponse = await fetch('markdown-content.md');
+                const markdownContent = await markdownResponse.text();
+                
+                const htmlContent = marked(markdownContent);
+                
+                document.getElementById('weeks-container').innerHTML = htmlContent;
+            } catch (error) {
+                console.error('Error loading markdown content:', error);
+            }
+        }
+
+        // Load markdown content when the page loads
+        window.addEventListener('DOMContentLoaded', loadMarkdownContent);
     </script>
 </body>
 </html>
