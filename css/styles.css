@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles for markdown content */
+.markdown-content {
+    @apply mt-8;
+}
+
+.markdown-content h1 {
+    @apply text-3xl font-bold mb-4;
+}
+
+.markdown-content h2 {
+    @apply text-2xl font-semibold mb-3 mt-6;
+}
+
+.markdown-content h3 {
+    @apply text-xl font-medium mb-2 mt-4;
+}
+
+.markdown-content table {
+    @apply min-w-full divide-y divide-gray-200;
+}
+
+.markdown-content thead {
+    @apply bg-gray-50;
+}
+
+.markdown-content th {
+    @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
+}
+
+.markdown-content tbody {
+    @apply bg-white divide-y divide-gray-200;
+}
+
+.markdown-content td {
+    @apply px-6 py-4 whitespace-nowrap text-sm text-gray-900;
+}
+
+/* Priority badges */
+.priority-high {
+    @apply px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800;
+}
+
+.priority-medium {
+    @apply px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800;
+}
+
+.priority-low {
+    @apply px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800;
+}
+
+/* Status badges */
+.status-completed {
+    @apply px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800;
+}
+
+.status-in-progress {
+    @apply px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800;
+}
+
+.status-not-started {
+    @apply px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800;
+}
+
+/* Progress bars */
+.progress-bar {
+    @apply w-full bg-gray-200 rounded-full h-2.5;
+}
+
+.progress-bar-fill {
+    @apply h-2.5 rounded-full;
+}
+
+.progress-completed {
+    @apply bg-green-600;
+}
+
+.progress-in-progress {
+    @apply bg-yellow-400;
+}
+
+.progress-not-started {
+    @apply bg-gray-400;
+}

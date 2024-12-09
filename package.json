@@ -1,0 +1,11 @@
+{
+  "name": "hex-webflow-code",
+  "version": "1.0.0",
+  "description": "Weekly Task Tracker",
+  "scripts": {
+    "build:css": "tailwindcss -i ./css/styles.css -o ./css/output.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.5"
+  }
+}

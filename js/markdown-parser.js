@@ -1,18 +1,27 @@
 // Function to fetch and parse markdown content
 async function fetchAndParseMarkdown() {
     try {
-        const response = await fetch('../weekly-tasks.md');
+        const response = await fetch('weekly-tasks.md');
         const markdownContent = await response.text();
         
-        // Parse markdown to HTML
-        const htmlContent = marked.parse(markdownContent);
+        // Split content into progress summary and weekly tasks
+        const sections = markdownContent.split('## Week');
+        const progressSummary = sections[0];
+        const weeklyContent = '## Week' + sections.slice(1).join('## Week');
+        
+        // Parse and update progress summary
+        const progressHtml = marked.parse(progressSummary);
+        document.getElementById('progress-summary').innerHTML = progressHtml;
+        
+        // Parse and update weekly content
+        const weeklyHtml = marked.parse(weeklyContent);
         
         // Get the weeks container
         const weeksContainer = document.getElementById('weeks-container');
         
         // Create a temporary container to hold the parsed HTML
         const tempContainer = document.createElement('div');
-        tempContainer.innerHTML = htmlContent;
+        tempContainer.innerHTML = weeklyHtml;
         
         // Process tables and apply Tailwind classes
         const tables = tempContainer.getElementsByTagName('table');
@@ -44,25 +53,17 @@ async function fetchAndParseMarkdown() {
                 // Add special styling for status and priority
                 if (td.textContent.includes('High') || td.textContent.includes('Medium') || td.textContent.includes('Low')) {
                     const priority = td.textContent.trim();
-                    td.innerHTML = `<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                        priority === 'High' ? 'bg-red-100 text-red-800' :
-                        priority === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
-                        'bg-green-100 text-green-800'
-                    }">${priority}</span>`;
+                    td.innerHTML = `<span class="priority-${priority.toLowerCase()}">${priority}</span>`;
                 }
                 
                 if (td.textContent.includes('Completed') || td.textContent.includes('In Progress') || td.textContent.includes('Not Started')) {
                     const status = td.textContent.trim();
-                    td.innerHTML = `<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                        status === 'Completed' ? 'bg-green-100 text-green-800' :
-                        status === 'In Progress' ? 'bg-yellow-100 text-yellow-800' :
-                        'bg-gray-100 text-gray-800'
-                    }">${status}</span>`;
+                    td.innerHTML = `<span class="status-${status.toLowerCase().replace(' ', '-')}">${status}</span>`;
                 }
             });
         });
         
-        // Update the content
+        // Update the weekly content
         weeksContainer.innerHTML = tempContainer.innerHTML;
         
         // Initialize tabs if needed

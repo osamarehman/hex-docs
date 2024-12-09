@@ -7,8 +7,10 @@
     <link href="https://cdn.prod.website-files.com/6627744b33c005540d1e47b7/6627744b33c005540d1e4813_fav-icon.png" rel="shortcut icon" type="image/x-icon"/>
     <link href="https://cdn.prod.website-files.com/6627744b33c005540d1e47b7/6627744b33c005540d1e4814_web-clip.png" rel="apple-touch-icon"/>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src=" https://cdn.jsdelivr.net/npm/marked@15.0.3/lib/marked.umd.min.js "></script>
-        <script src="js/markdown-parser.js"></script>
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="css/output.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked@15.0.3/lib/marked.umd.min.js"></script>
+    <script src="js/markdown-parser.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-javascript.min.js"></script>
@@ -137,8 +139,13 @@
     </div>
 
     <!-- Main Content -->
-    <main class="main-content pt-16 transition-all duration-300 ease-in-out md:pl-64">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <!-- Weekly Progress Summary -->
+        <div id="progress-summary" class="px-4 py-5 bg-white shadow rounded-lg mb-6">
+            <!-- Will be populated by markdown content -->
+        </div>
+
+        <div class="px-4 py-6 sm:px-0">
             <div class="prose max-w-none">
                 <section id="overview" class="mb-12">
                     <h2 class="text-3xl font-bold text-gray-900 mb-6">Overview</h2>
