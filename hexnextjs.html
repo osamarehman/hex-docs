@@ -38,13 +38,60 @@
             width: 2px;
             background-color: #e5e7eb;
         }
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+            }
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+                transition: margin-left 0.3s ease-in-out;
+            }
+            .main-content.sidebar-active {
+                margin-left: 16rem;
+            }
+        }
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 40;
+        }
+        .sidebar-overlay.active {
+            display: block;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
+    <!-- Mobile Menu Button -->
+    <button id="menuButton" class="fixed top-4 left-4 z-50 p-2 bg-white rounded-md shadow-lg md:hidden">
+        <i class="fas fa-bars text-gray-600"></i>
+    </button>
+
+    <!-- Sidebar Overlay -->
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
     <!-- Navigation Sidebar -->
-    <nav class="fixed top-0 left-0 h-full w-64 bg-white shadow-lg overflow-y-auto">
+    <nav id="sidebar" class="sidebar fixed top-0 left-0 h-full w-64 bg-white shadow-lg overflow-y-auto z-50">
         <div class="p-6">
-            <h1 class="text-2xl font-bold text-gray-800 mb-8">Hex Next PRD</h1>
+            <div class="flex justify-between items-center mb-8">
+                <h1 class="text-2xl font-bold text-gray-800">Hex Next PRD</h1>
+                <button id="closeSidebar" class="md:hidden text-gray-600">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
             <ul class="space-y-2">
                 <li><a href="#overview" class="nav-item block p-3 rounded hover:bg-gray-100">Overview</a></li>
                 <li><a href="#core-functionalities" class="nav-item block p-3 rounded hover:bg-gray-100">Core Functionalities</a></li>
@@ -57,7 +104,7 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="ml-64 p-8">
+    <main id="mainContent" class="main-content ml-0 md:ml-64 p-4 md:p-8 transition-all duration-300">
         <div class="max-w-4xl mx-auto">
             <!-- Overview Section -->
             <section id="overview" class="mb-16">
@@ -267,6 +314,32 @@
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
+            });
+        });
+
+        // Sidebar Toggle
+        const menuButton = document.getElementById('menuButton');
+        const closeSidebarButton = document.getElementById('closeSidebar');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('active');
+            sidebarOverlay.classList.toggle('active');
+            document.body.classList.toggle('overflow-hidden');
+        }
+
+        menuButton.addEventListener('click', toggleSidebar);
+        closeSidebarButton.addEventListener('click', toggleSidebar);
+        sidebarOverlay.addEventListener('click', toggleSidebar);
+
+        // Close sidebar on navigation item click (mobile only)
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth < 768) {
+                    toggleSidebar();
+                }
             });
         });
     </script>
