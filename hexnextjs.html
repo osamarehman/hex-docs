@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hex Next - Heat Pump Configuration System PRD</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <style>
+        :root {
+            --primary-color: #0070f3;
+            --secondary-color: #0366d6;
+        }
+        .nav-item.active {
+            border-left: 4px solid var(--primary-color);
+            background-color: rgba(0, 112, 243, 0.1);
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -25px;
+            top: 15px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+        }
+        .timeline-item {
+            position: relative;
+            margin-left: 25px;
+            padding-bottom: 20px;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 27px;
+            bottom: 0;
+            width: 2px;
+            background-color: #e5e7eb;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation Sidebar -->
+    <nav class="fixed top-0 left-0 h-full w-64 bg-white shadow-lg overflow-y-auto">
+        <div class="p-6">
+            <h1 class="text-2xl font-bold text-gray-800 mb-8">Hex Next PRD</h1>
+            <ul class="space-y-2">
+                <li><a href="#overview" class="nav-item block p-3 rounded hover:bg-gray-100">Overview</a></li>
+                <li><a href="#core-functionalities" class="nav-item block p-3 rounded hover:bg-gray-100">Core Functionalities</a></li>
+                <li><a href="#user-flow" class="nav-item block p-3 rounded hover:bg-gray-100">User Flow</a></li>
+                <li><a href="#technical" class="nav-item block p-3 rounded hover:bg-gray-100">Technical Architecture</a></li>
+                <li><a href="#timeline" class="nav-item block p-3 rounded hover:bg-gray-100">Development Timeline</a></li>
+                <li><a href="#requirements" class="nav-item block p-3 rounded hover:bg-gray-100">Requirements</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="ml-64 p-8">
+        <div class="max-w-4xl mx-auto">
+            <!-- Overview Section -->
+            <section id="overview" class="mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-6">Heat Pump Configuration System</h2>
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <p class="text-gray-600 leading-relaxed">
+                        A sophisticated web application designed to help users configure and purchase heat pump systems. 
+                        The application provides a step-by-step configuration process, address validation, product recommendations, 
+                        and financing options.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Core Functionalities -->
+            <section id="core-functionalities" class="mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Core Functionalities</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Address Validation -->
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Address Validation</h3>
+                        <ul class="list-disc list-inside text-gray-600 space-y-2">
+                            <li>Real-time address validation</li>
+                            <li>Map visualization</li>
+                            <li>Building information retrieval</li>
+                        </ul>
+                    </div>
+                    <!-- Heat System Configuration -->
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">System Configuration</h3>
+                        <ul class="list-disc list-inside text-gray-600 space-y-2">
+                            <li>Heat pump specifications</li>
+                            <li>Boiler requirements</li>
+                            <li>Energy consumption analysis</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Development Timeline -->
+            <section id="timeline" class="mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Development Timeline</h2>
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <div class="timeline-item">
+                        <h3 class="text-xl font-semibold text-gray-800">Initial Setup (10 hours)</h3>
+                        <p class="text-gray-600">Project setup, TypeScript configuration, and framework implementation</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3 class="text-xl font-semibold text-gray-800">Frontend Development (35 hours)</h3>
+                        <p class="text-gray-600">Multi-step form implementation and UI components</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3 class="text-xl font-semibold text-gray-800">Backend Development (15 hours)</h3>
+                        <p class="text-gray-600">API development and external integrations</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3 class="text-xl font-semibold text-gray-800">Testing & Documentation (10 hours)</h3>
+                        <p class="text-gray-600">Quality assurance and documentation</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Performance Requirements -->
+            <section id="requirements" class="mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Requirements</h2>
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">Performance</h3>
+                            <ul class="list-disc list-inside text-gray-600 space-y-2">
+                                <li>Address suggestion: < 300ms</li>
+                                <li>Page load time: < 2s</li>
+                                <li>Form transitions: < 100ms</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">Security</h3>
+                            <ul class="list-disc list-inside text-gray-600 space-y-2">
+                                <li>HTTPS encryption</li>
+                                <li>Input validation</li>
+                                <li>Rate limiting</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Highlight active section in navigation
+        const navItems = document.querySelectorAll('.nav-item');
+        const sections = document.querySelectorAll('section');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href').slice(1) === current) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth scroll to sections
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
