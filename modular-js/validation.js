@@ -5,14 +5,14 @@ window.validateCalculationParams = function (params) {
     debugUtils.info("Validation", "Validating calculation parameters", { params });
 
     const requiredFields = [
-        "buildingAge",
-        "livingArea",
-        "currentHeating",
-        "newHeatingPlace",
-        "chosenPayment"
+        'eingangId',
+        'heatingType',
+        'newHeatingPlace',
+        'buildingType',
+        'constructionYear',
+        'heatedArea'
     ];
 
-    // Check for missing required fields
     const missingFields = requiredFields.filter(field => !params[field]);
     if (missingFields.length > 0) {
         debugUtils.error("Validation", "Missing required fields", { missingFields });

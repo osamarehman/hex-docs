@@ -36,8 +36,4 @@ yarn-error.log*
 # Source files
 
 
-modular-js/bundle.js
-/modular-js
-PRD-Extended.md
-PRD-v1.md
-PRD.md
+modular-js/

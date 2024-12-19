@@ -1,11 +1,11 @@
-import { debugUtils } from './debug-utils.js';
-import { API_ENDPOINTS, fetchDataGet } from './api.js';
-import { debounce } from './utils.js';
-import { showOnMap } from './map-handler.js';
-import { CHtoWGSlat, CHtoWGSlng } from './coordinates.js';
-import { resetFormValues, prefillFormFields } from './form-handler.js';
+// import { debugUtils } from './debug-utils.js';
+// import { API_ENDPOINTS, fetchDataGet } from './api.js';
+// import { debounce } from './utils.js';
+// import { showOnMap } from './map-handler.js';
+// import { CHtoWGSlat, CHtoWGSlng } from './coordinates.js';
+// import { resetFormValues, prefillFormFields } from './form-handler.js';
 
-export const handleAddressInput = debounce(async function () {
+window.handleAddressInput = debounce(async function () {
     const address = document.getElementById("addressInput").value.trim();
     debugUtils.info("Address", "Address input changed", { value: address });
     
@@ -21,7 +21,7 @@ export const handleAddressInput = debounce(async function () {
     
     try {
         debugUtils.info("Address", "Fetching possible addresses", { address });
-        const url = `${API_ENDPOINTS.possibleAddress}?address=${encodeURIComponent(address)}`;
+        const url = `${window.API_ENDPOINTS.possibleAddress}?address=${encodeURIComponent(address)}`;
         debugUtils.info("Address", "API request URL", { url });
         
         const response = await fetch(url);
@@ -36,13 +36,13 @@ export const handleAddressInput = debounce(async function () {
             addresses: possibleAddresses 
         });
         
-        updateDropdown(possibleAddresses);
-        resetFormValues();
+        window.updateDropdown(possibleAddresses);
+        window.resetFormValues();
     } catch (error) {
         debugUtils.error("Address", "Error fetching possible addresses:", { 
             error: error.message,
             stack: error.stack,
-            url: `${API_ENDPOINTS.possibleAddress}?address=${encodeURIComponent(address)}`
+            url: `${window.API_ENDPOINTS.possibleAddress}?address=${encodeURIComponent(address)}`
         });
         const dropdown = document.getElementById("myDropdown");
         if (dropdown) {
@@ -52,14 +52,14 @@ export const handleAddressInput = debounce(async function () {
     }
 }, 300);
 
-export const handleAddressSelection = async function (eingangId) {
+window.handleAddressSelection = async function (eingangId) {
     debugUtils.info("Address", "Handling address selection", { eingangId });
 
     try {
-        resetFormValues();
+        window.resetFormValues();
 
-        const houseInfo = await fetchDataGet(
-            `${API_ENDPOINTS.houseInfo}?eingangId=${eingangId}`
+        const houseInfo = await window.fetchDataGet(
+            `${window.API_ENDPOINTS.houseInfo}?eingangId=${eingangId}`
         );
         
         debugUtils.info("Address", "Received house info", { 
@@ -69,7 +69,7 @@ export const handleAddressSelection = async function (eingangId) {
             }
         });
 
-        prefillFormFields(houseInfo);
+        window.prefillFormFields(houseInfo);
 
         const eingangIdInput = document.querySelector('input[name="eingangId"]');
         if (eingangIdInput) {
@@ -87,7 +87,7 @@ export const handleAddressSelection = async function (eingangId) {
                 wgs84: { lat, lng }
             });
 
-            showOnMap(lat, lng);
+            window.showOnMap(lat, lng);
         } else {
             debugUtils.warn("Map", "No coordinates found in house info");
         }
@@ -95,12 +95,12 @@ export const handleAddressSelection = async function (eingangId) {
         debugUtils.error("Address", "Error fetching house info", { 
             error: error.message,
             stack: error.stack,
-            url: `${API_ENDPOINTS.houseInfo}?eingangId=${eingangId}`
+            url: `${window.API_ENDPOINTS.houseInfo}?eingangId=${eingangId}`
         });
     }
 }
 
-export function updateDropdown(possibleAddresses) {
+window.updateDropdown = function (possibleAddresses) {
     const dropdown = document.getElementById("myDropdown");
     debugUtils.info("Address", "Updating dropdown", { 
         dropdownFound: !!dropdown,
@@ -119,7 +119,7 @@ export function updateDropdown(possibleAddresses) {
         possibleAddresses.forEach((address) => {
             const div = document.createElement("div");
             div.textContent = address.address;
-            div.onclick = () => handleAddressSelection(address.eingangId);
+            div.onclick = () => window.handleAddressSelection(address.eingangId);
             dropdown.appendChild(div);
         });
         dropdown.style.display = "block";
