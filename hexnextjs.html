@@ -1,349 +1,519 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hex Next - Heat Pump Configuration System PRD</title>
-     <link href="https://cdn.prod.website-files.com/6627744b33c005540d1e47b7/6627744b33c005540d1e4813_fav-icon.png" rel="shortcut icon" type="image/x-icon"/>
-    <link href="https://cdn.prod.website-files.com/6627744b33c005540d1e47b7/6627744b33c005540d1e4814_web-clip.png" rel="apple-touch-icon"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
-    <style>
-        :root {
-            --primary-color: #0070f3;
-            --secondary-color: #0366d6;
-        }
-        .nav-item.active {
-            border-left: 4px solid var(--primary-color);
-            background-color: rgba(0, 112, 243, 0.1);
-        }
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -25px;
-            top: 15px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: var(--primary-color);
-        }
-        .timeline-item {
-            position: relative;
-            margin-left: 25px;
-            padding-bottom: 20px;
-        }
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            left: -20px;
-            top: 27px;
-            bottom: 0;
-            width: 2px;
-            background-color: #e5e7eb;
-        }
-        @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-                transition: transform 0.3s ease-in-out;
-            }
-            .sidebar.active {
-                transform: translateX(0);
-            }
-            .main-content {
-                margin-left: 0;
-                transition: margin-left 0.3s ease-in-out;
-            }
-            .main-content.sidebar-active {
-                margin-left: 16rem;
-            }
-        }
-        .sidebar-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 40;
-        }
-        .sidebar-overlay.active {
-            display: block;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hex Next - Heat Pump Configuration System PRD</title>
+  <link
+    href="https://cdn.prod.website-files.com/6627744b33c005540d1e47b7/6627744b33c005540d1e4813_fav-icon.png"
+    rel="shortcut icon"
+    type="image/x-icon"
+  />
+  <link
+    href="https://cdn.prod.website-files.com/6627744b33c005540d1e47b7/6627744b33c005540d1e4814_web-clip.png"
+    rel="apple-touch-icon"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+  />
+  <style>
+    :root {
+      --primary-color: #0070f3;
+      --secondary-color: #0366d6;
+    }
+
+    .nav-item.active {
+      border-left: 4px solid var(--primary-color);
+      background-color: rgba(0, 112, 243, 0.1);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-left: 25px;
+      padding-bottom: 20px;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -25px;
+      top: 15px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: var(--primary-color);
+    }
+
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      left: -20px;
+      top: 27px;
+      bottom: 0;
+      width: 2px;
+      background-color: #e5e7eb;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+      }
+      .sidebar.active {
+        transform: translateX(0);
+      }
+      .main-content {
+        margin-left: 0;
+        transition: margin-left 0.3s ease-in-out;
+      }
+      .main-content.sidebar-active {
+        margin-left: 16rem;
+      }
+    }
+
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 40;
+    }
+
+    .sidebar-overlay.active {
+      display: block;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+  </style>
 </head>
 <body class="bg-gray-50">
-    <!-- Mobile Menu Button -->
-    <button id="menuButton" class="fixed top-4 left-4 z-50 p-2 bg-white rounded-md shadow-lg md:hidden">
-        <i class="fas fa-bars text-gray-600"></i>
-    </button>
+  <!-- Mobile Menu Button -->
+  <button
+    id="menuButton"
+    class="fixed top-4 left-4 z-50 p-2 bg-white rounded-md shadow-lg md:hidden"
+  >
+    <i class="fas fa-bars text-gray-600"></i>
+  </button>
 
-    <!-- Sidebar Overlay -->
-    <div id="sidebarOverlay" class="sidebar-overlay"></div>
+  <!-- Sidebar Overlay -->
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
 
-    <!-- Navigation Sidebar -->
-    <nav id="sidebar" class="sidebar fixed top-0 left-0 h-full w-64 bg-white shadow-lg overflow-y-auto z-50">
-        <div class="p-6">
-            <div class="flex justify-between items-center mb-8">
-                <h1 class="text-2xl font-bold text-gray-800">Hex Next PRD</h1>
-                <button id="closeSidebar" class="md:hidden text-gray-600">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <ul class="space-y-2">
-                <li><a href="#overview" class="nav-item block p-3 rounded hover:bg-gray-100">Overview</a></li>
-                <li><a href="#core-functionalities" class="nav-item block p-3 rounded hover:bg-gray-100">Core Functionalities</a></li>
-                <li><a href="#user-flow" class="nav-item block p-3 rounded hover:bg-gray-100">User Flow</a></li>
-                <li><a href="#technical" class="nav-item block p-3 rounded hover:bg-gray-100">Technical Architecture</a></li>
-                <li><a href="#timeline" class="nav-item block p-3 rounded hover:bg-gray-100">Development Timeline</a></li>
-                <li><a href="#requirements" class="nav-item block p-3 rounded hover:bg-gray-100">Requirements</a></li>
+  <!-- Navigation Sidebar -->
+  <nav
+    id="sidebar"
+    class="sidebar fixed top-0 left-0 h-full w-64 bg-white shadow-lg overflow-y-auto z-50"
+  >
+    <div class="p-6">
+      <div class="flex justify-between items-center mb-8">
+        <h1 class="text-2xl font-bold text-gray-800">Hex Next PRD</h1>
+        <button id="closeSidebar" class="md:hidden text-gray-600">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <ul class="space-y-2">
+        <li>
+          <a href="#overview" class="nav-item block p-3 rounded hover:bg-gray-100"
+            >Overview</a
+          >
+        </li>
+        <li>
+          <a
+            href="#core-functionalities"
+            class="nav-item block p-3 rounded hover:bg-gray-100"
+            >Core Functionalities</a
+          >
+        </li>
+        <li>
+          <a href="#user-flow" class="nav-item block p-3 rounded hover:bg-gray-100"
+            >User Flow</a
+          >
+        </li>
+        <li>
+          <a href="#technical" class="nav-item block p-3 rounded hover:bg-gray-100"
+            >Technical Architecture</a
+          >
+        </li>
+        <li>
+          <a href="#timeline" class="nav-item block p-3 rounded hover:bg-gray-100"
+            >Development Timeline</a
+          >
+        </li>
+        <li>
+          <a href="#requirements" class="nav-item block p-3 rounded hover:bg-gray-100"
+            >Requirements</a
+          >
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main id="mainContent" class="main-content ml-0 md:ml-64 p-4 md:p-8 transition-all duration-300">
+    <div class="max-w-4xl mx-auto">
+      <!-- Overview Section -->
+      <section id="overview" class="mb-16">
+        <h2 class="text-4xl font-bold text-gray-800 mb-6">Heat Pump Configuration System</h2>
+        <div class="bg-white rounded-lg shadow-sm p-6">
+          <p class="text-gray-600 leading-relaxed">
+            A sophisticated web application designed to help users configure and purchase
+            heat pump systems. The application provides a step-by-step configuration process,
+            address validation, product recommendations, and financing options.
+          </p>
+        </div>
+      </section>
+
+      <!-- Core Functionalities -->
+      <section id="core-functionalities" class="mb-16">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6">Core Functionalities</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Address Validation -->
+          <div class="bg-white rounded-lg shadow-sm p-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">
+              Address Validation & Data
+            </h3>
+            <ul class="list-disc list-inside text-gray-600 space-y-2">
+              <li>Real-time address validation with SWR caching</li>
+              <li>Debounced search with 200ms delay</li>
+              <li>Interactive map visualization</li>
+              <li>Automatic building data retrieval</li>
+              <li>Error handling with retry logic</li>
+              <li>Cache invalidation strategies</li>
             </ul>
+          </div>
+          <!-- Heat System Configuration -->
+          <div class="bg-white rounded-lg shadow-sm p-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">
+              System Configuration
+            </h3>
+            <ul class="list-disc list-inside text-gray-600 space-y-2">
+              <li>Dynamic heat pump specifications</li>
+              <li>Smart boiler capacity calculation</li>
+              <li>Energy consumption analysis</li>
+              <li>Real-time cost calculations</li>
+              <li>Subsidy integration</li>
+              <li>Installation requirements assessment</li>
+            </ul>
+          </div>
+          <!-- Form Management -->
+          <div class="bg-white rounded-lg shadow-sm p-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Form Management</h3>
+            <ul class="list-disc list-inside text-gray-600 space-y-2">
+              <li>React Context for global state</li>
+              <li>Multi-step form validation</li>
+              <li>Form data persistence</li>
+              <li>Step navigation logic</li>
+              <li>Error boundary implementation</li>
+              <li>Form state recovery</li>
+            </ul>
+          </div>
+          <!-- Financial Calculations -->
+          <div class="bg-white rounded-lg shadow-sm p-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Financial Tools</h3>
+            <ul class="list-disc list-inside text-gray-600 space-y-2">
+              <li>Real-time payment calculations</li>
+              <li>Dynamic subsidy adjustments</li>
+              <li>Flexible payment plans</li>
+              <li>Interest rate calculations</li>
+              <li>Total cost breakdown</li>
+              <li>Monthly payment estimations</li>
+            </ul>
+          </div>
         </div>
-    </nav>
+      </section>
 
-    <!-- Main Content -->
-    <main id="mainContent" class="main-content ml-0 md:ml-64 p-4 md:p-8 transition-all duration-300">
-        <div class="max-w-4xl mx-auto">
-            <!-- Overview Section -->
-            <section id="overview" class="mb-16">
-                <h2 class="text-4xl font-bold text-gray-800 mb-6">Heat Pump Configuration System</h2>
-                <div class="bg-white rounded-lg shadow-sm p-6">
-                    <p class="text-gray-600 leading-relaxed">
-                        A sophisticated web application designed to help users configure and purchase heat pump systems. 
-                        The application provides a step-by-step configuration process, address validation, product recommendations, 
-                        and financing options.
-                    </p>
-                </div>
-            </section>
-
-            <!-- Core Functionalities -->
-            <section id="core-functionalities" class="mb-16">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">Core Functionalities</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Address Validation -->
-                    <div class="bg-white rounded-lg shadow-sm p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Address Validation & Data</h3>
-                        <ul class="list-disc list-inside text-gray-600 space-y-2">
-                            <li>Real-time address validation with SWR caching</li>
-                            <li>Debounced search with 200ms delay</li>
-                            <li>Interactive map visualization</li>
-                            <li>Automatic building data retrieval</li>
-                            <li>Error handling with retry logic</li>
-                            <li>Cache invalidation strategies</li>
-                        </ul>
-                    </div>
-                    <!-- Heat System Configuration -->
-                    <div class="bg-white rounded-lg shadow-sm p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">System Configuration</h3>
-                        <ul class="list-disc list-inside text-gray-600 space-y-2">
-                            <li>Dynamic heat pump specifications</li>
-                            <li>Smart boiler capacity calculation</li>
-                            <li>Energy consumption analysis</li>
-                            <li>Real-time cost calculations</li>
-                            <li>Subsidy integration</li>
-                            <li>Installation requirements assessment</li>
-                        </ul>
-                    </div>
-                    <!-- Form Management -->
-                    <div class="bg-white rounded-lg shadow-sm p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Form Management</h3>
-                        <ul class="list-disc list-inside text-gray-600 space-y-2">
-                            <li>React Context for global state</li>
-                            <li>Multi-step form validation</li>
-                            <li>Form data persistence</li>
-                            <li>Step navigation logic</li>
-                            <li>Error boundary implementation</li>
-                            <li>Form state recovery</li>
-                        </ul>
-                    </div>
-                    <!-- Financial Calculations -->
-                    <div class="bg-white rounded-lg shadow-sm p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Financial Tools</h3>
-                        <ul class="list-disc list-inside text-gray-600 space-y-2">
-                            <li>Real-time payment calculations</li>
-                            <li>Dynamic subsidy adjustments</li>
-                            <li>Flexible payment plans</li>
-                            <li>Interest rate calculations</li>
-                            <li>Total cost breakdown</li>
-                            <li>Monthly payment estimations</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Technical Implementation -->
-            <section id="technical-implementation" class="mb-16">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">Technical Implementation</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Modern Technologies -->
-                    <div class="bg-white rounded-lg shadow-sm p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Modern Technologies</h3>
-                        <ul class="list-disc list-inside text-gray-600 space-y-2">
-                            <li>Next.js 14 with App Router</li>
-                            <li>React Server Components</li>
-                            <li>TypeScript for type safety</li>
-                            <li>Tailwind CSS for styling</li>
-                            <li>SWR for data fetching</li>
-                        </ul>
-                    </div>
-                    <!-- Data Management -->
-                    <div class="bg-white rounded-lg shadow-sm p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Data Management</h3>
-                        <ul class="list-disc list-inside text-gray-600 space-y-2">
-                            <li>SWR caching strategies:
-                                <ul class="list-disc list-inside ml-4 text-gray-500">
-                                    <li>Deduplication interval: 100ms</li>
-                                    <li>Error retry count: 2</li>
-                                    <li>Loading timeout: 3000ms</li>
-                                    <li>Keep previous data</li>
-                                </ul>
-                            </li>
-                            <li>Form Context features:
-                                <ul class="list-disc list-inside ml-4 text-gray-500">
-                                    <li>Global state management</li>
-                                    <li>Step validation</li>
-                                    <li>Data persistence</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- Performance Optimizations -->
-                    <div class="bg-white rounded-lg shadow-sm p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Performance Optimizations</h3>
-                        <ul class="list-disc list-inside text-gray-600 space-y-2">
-                            <li>Client-side caching</li>
-                            <li>Debounced search inputs</li>
-                            <li>Optimistic UI updates</li>
-                            <li>Lazy loading components</li>
-                            <li>Image optimization</li>
-                        </ul>
-                    </div>
-                    <!-- Next.js Features -->
-                    <div class="bg-white rounded-lg shadow-sm p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Next.js Features</h3>
-                        <ul class="list-disc list-inside text-gray-600 space-y-2">
-                            <li>App Router implementation</li>
-                            <li>API route handlers</li>
-                            <li>Server components</li>
-                            <li>Dynamic imports</li>
-                            <li>Route handlers with CORS</li>
-                            <li>Cache-Control headers</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Development Timeline -->
-            <section id="timeline" class="mb-16">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">Development Timeline</h2>
-                <div class="bg-white rounded-lg shadow-sm p-6">
-                    <div class="timeline-item">
-                        <h3 class="text-xl font-semibold text-gray-800">Initial Setup (8 hours)</h3>
-                        <p class="text-gray-600">Project setup, TypeScript configuration, and framework implementation</p>
-                    </div>
-                    <div class="timeline-item">
-                        <h3 class="text-xl font-semibold text-gray-800">Frontend Development (25 hours)</h3>
-                        <p class="text-gray-600">Multi-step form implementation and UI components</p>
-                    </div>
-                    <div class="timeline-item">
-                        <h3 class="text-xl font-semibold text-gray-800">Backend Development (22 hours)</h3>
-                        <p class="text-gray-600">API development and external integrations</p>
-                    </div>
-                    <div class="timeline-item">
-                        <h3 class="text-xl font-semibold text-gray-800">Testing & Documentation (5 hours)</h3>
-                        <p class="text-gray-600">Quality assurance and documentation</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Performance Requirements -->
-            <section id="requirements" class="mb-16">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">Requirements</h2>
-                <div class="bg-white rounded-lg shadow-sm p-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <h3 class="text-xl font-semibold text-gray-800 mb-4">Performance</h3>
-                            <ul class="list-disc list-inside text-gray-600 space-y-2">
-                                <li>Address suggestion: < 300ms</li>
-                                <li>Page load time: < 2s</li>
-                                <li>Form transitions: < 100ms</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-semibold text-gray-800 mb-4">Security</h3>
-                            <ul class="list-disc list-inside text-gray-600 space-y-2">
-                                <li>HTTPS encryption</li>
-                                <li>Input validation</li>
-                                <li>Rate limiting</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
+      <!-- Technical Implementation -->
+      <section id="technical-implementation" class="mb-16">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6">Technical Implementation</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Modern Technologies -->
+          <div class="bg-white rounded-lg shadow-sm p-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">
+              Modern Technologies
+            </h3>
+            <ul class="list-disc list-inside text-gray-600 space-y-2">
+              <li>Next.js 14 with App Router</li>
+              <li>React Server Components</li>
+              <li>TypeScript for type safety</li>
+              <li>Tailwind CSS for styling</li>
+              <li>SWR for data fetching</li>
+            </ul>
+          </div>
+          <!-- Data Management -->
+          <div class="bg-white rounded-lg shadow-sm p-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">
+              Data Management
+            </h3>
+            <ul class="list-disc list-inside text-gray-600 space-y-2">
+              <li>
+                SWR caching strategies:
+                <ul class="list-disc list-inside ml-4 text-gray-500">
+                  <li>Deduplication interval: 100ms</li>
+                  <li>Error retry count: 2</li>
+                  <li>Loading timeout: 3000ms</li>
+                  <li>Keep previous data</li>
+                </ul>
+              </li>
+              <li>
+                Form Context features:
+                <ul class="list-disc list-inside ml-4 text-gray-500">
+                  <li>Global state management</li>
+                  <li>Step validation</li>
+                  <li>Data persistence</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <!-- Performance Optimizations -->
+          <div class="bg-white rounded-lg shadow-sm p-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">
+              Performance Optimizations
+            </h3>
+            <ul class="list-disc list-inside text-gray-600 space-y-2">
+              <li>Client-side caching</li>
+              <li>Debounced search inputs</li>
+              <li>Optimistic UI updates</li>
+              <li>Lazy loading components</li>
+              <li>Image optimization</li>
+            </ul>
+          </div>
+          <!-- Next.js Features -->
+          <div class="bg-white rounded-lg shadow-sm p-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">
+              Next.js Features
+            </h3>
+            <ul class="list-disc list-inside text-gray-600 space-y-2">
+              <li>App Router implementation</li>
+              <li>API route handlers</li>
+              <li>Server components</li>
+              <li>Dynamic imports</li>
+              <li>Route handlers with CORS</li>
+              <li>Cache-Control headers</li>
+            </ul>
+          </div>
         </div>
-    </main>
+      </section>
 
-    <script>
-        // Highlight active section in navigation
-        const navItems = document.querySelectorAll('.nav-item');
-        const sections = document.querySelectorAll('section');
+      <!-- Development Timeline (Detailed) -->
+      <section id="timeline" class="mb-16">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6">Development Timeline</h2>
 
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (window.pageYOffset >= sectionTop - 60) {
-                    current = section.getAttribute('id');
-                }
-            });
+        <div class="bg-white rounded-lg shadow-sm p-6 space-y-8">
+          <!-- Initial Setup (~8 hours) -->
+          <div class="timeline-item">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">
+              Initial Setup (~8 hours)
+            </h3>
+            <p class="text-gray-600 mb-4">
+              Basic project configuration, environment setup, and repository structure.
+            </p>
+            <ul class="list-disc list-inside text-gray-600 space-y-1">
+              <li>Project scaffolding & folder structure <strong>(30 minutes)</strong></li>
+              <li>TypeScript config (tsconfig) & linting rules <strong>(20 minutes)</strong></li>
+              <li>Installing Next.js dependencies <strong>(15 minutes)</strong></li>
+              <li>App Router basic setup <strong>(15 minutes)</strong></li>
+              <li>Tailwind CSS installation & config <strong>(20 minutes)</strong></li>
+              <li>Git branching strategy & CI/CD check <strong>(30 minutes)</strong></li>
+              <li>Environment variable setup (API keys, etc.) <strong>(30 minutes)</strong></li>
+              <li>Basic page placeholders & routes <strong>(1 hour)</strong></li>
+              <li>Documentation on setup & environment <strong>(30 minutes)</strong></li>
+              <li>Review & adjustments <strong>(30 minutes)</strong></li>
+            </ul>
+          </div>
 
-            navItems.forEach(item => {
-                item.classList.remove('active');
-                if (item.getAttribute('href').slice(1) === current) {
-                    item.classList.add('active');
-                }
-            });
-        });
+          <!-- Frontend Development (~25 hours) -->
+          <div class="timeline-item">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">
+              Frontend Development (~25 hours)
+            </h3>
+            <p class="text-gray-600 mb-4">
+              Multi-step form implementation, UI components, styling, and client-facing logic.
+            </p>
+            <ul class="list-disc list-inside text-gray-600 space-y-1">
+              <li>Designing multi-step form flow <strong>(45 minutes)</strong></li>
+              <li>Form Context & validation logic <strong>(1 hour)</strong></li>
+              <li>Step-by-step UI creation <strong>(2 hours)</strong></li>
+              <li>Address validation components <strong>(1 hour)</strong></li>
+              <li>Interactive map & building data display <strong>(1 hour)</strong></li>
+              <li>Debounced search inputs <strong>(30 minutes)</strong></li>
+              <li>Real-time cost calculations <strong>(1 hour)</strong></li>
+              <li>Subsidy integration (front-end) <strong>(1 hour)</strong></li>
+              <li>Styling with Tailwind & responsive design <strong>(2 hours)</strong></li>
+              <li>Financial tool components (payment plan) <strong>(1 hour)</strong></li>
+              <li>Navigation & form state persistence <strong>(45 minutes)</strong></li>
+              <li>Error boundaries & fallback UI <strong>(30 minutes)</strong></li>
+              <li>Accessibility checks (a11y) <strong>(30 minutes)</strong></li>
+              <li>Cross-browser testing <strong>(45 minutes)</strong></li>
+              <li>User feedback integration loop <strong>(2 hours)</strong></li>
+              <li>Refinement & styling polish <strong>(2 hours)</strong></li>
+              <li>Documentation of UI components <strong>(1 hour)</strong></li>
+              <li>Final merges & code cleanup <strong>(1 hour)</strong></li>
+            </ul>
+          </div>
 
-        // Smooth scroll to sections
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
+          <!-- Backend Development (~22 hours) -->
+          <div class="timeline-item">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">
+              Backend Development (~22 hours)
+            </h3>
+            <p class="text-gray-600 mb-4">
+              API development, data fetch, external service integrations, and SSR logic.
+            </p>
+            <ul class="list-disc list-inside text-gray-600 space-y-1">
+              <li>API routes for address validation <strong>(1 hour)</strong></li>
+              <li>SWR caching & revalidation setup <strong>(1 hour)</strong></li>
+              <li>Server components for SSR data fetching <strong>(1 hour)</strong></li>
+              <li>Integration with external building data API <strong>(2 hours)</strong></li>
+              <li>Subsidy calculation & external API calls <strong>(2 hours)</strong></li>
+              <li>Security & rate limiting on API routes <strong>(1 hour)</strong></li>
+              <li>Basic logging & error tracking <strong>(45 minutes)</strong></li>
+              <li>Database schema review (if applicable) <strong>(1 hour)</strong></li>
+              <li>API error handling & fallback data <strong>(1 hour)</strong></li>
+              <li>Optimizations & request compression <strong>(30 minutes)</strong></li>
+              <li>Cache-Control headers & usage <strong>(30 minutes)</strong></li>
+              <li>Cross-domain (CORS) configuration <strong>(20 minutes)</strong></li>
+              <li>API load testing & performance tuning <strong>(1 hour)</strong></li>
+              <li>Refactoring & code cleanup <strong>(1 hour)</strong></li>
+              <li>Unit tests & integration tests <strong>(2 hours)</strong></li>
+              <li>Documentation of API endpoints <strong>(1 hour)</strong></li>
+              <li>Deployment configuration <strong>(1 hour)</strong></li>
+            </ul>
+          </div>
 
-        // Sidebar Toggle
-        const menuButton = document.getElementById('menuButton');
-        const closeSidebarButton = document.getElementById('closeSidebar');
-        const sidebar = document.getElementById('sidebar');
-        const mainContent = document.getElementById('mainContent');
-        const sidebarOverlay = document.getElementById('sidebarOverlay');
+          <!-- Next Day's Migration (SCML Page) (~8 hours) -->
+          <div class="timeline-item">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">
+              Next Day's Migration (SCML Page) (~8 hours)
+            </h3>
+            <p class="text-gray-600 mb-4">
+              Creating and migrating the SCML page into the new system, ensuring compatibility and styling alignment.
+            </p>
+            <ul class="list-disc list-inside text-gray-600 space-y-1">
+              <li>Review SCML page requirements & old code <strong>(30 minutes)</strong></li>
+              <li>Set up page structure & routing in Next.js <strong>(30 minutes)</strong></li>
+              <li>Implement initial SCML layout & sections <strong>(1 hour)</strong></li>
+              <li>Data migration & mapping to new DB (if any) <strong>(1 hour)</strong></li>
+              <li>Implement SCML logic (conditional rendering) <strong>(1 hour)</strong></li>
+              <li>Tailwind styling & responsive adjustments <strong>(1 hour)</strong></li>
+              <li>Testing user flows (SCML wizard steps) <strong>(45 minutes)</strong></li>
+              <li>Fixing style or component conflicts <strong>(30 minutes)</strong></li>
+              <li>Accessibility check (focus states, ARIA) <strong>(30 minutes)</strong></li>
+              <li>Cross-browser validation <strong>(30 minutes)</strong></li>
+              <li>Documentation & code comments <strong>(30 minutes)</strong></li>
+              <li>Deployment & final verification <strong>(30 minutes)</strong></li>
+            </ul>
+          </div>
 
-        function toggleSidebar() {
-            sidebar.classList.toggle('active');
-            sidebarOverlay.classList.toggle('active');
-            document.body.classList.toggle('overflow-hidden');
+          <!-- Testing & Documentation (~5 hours) -->
+          <div class="timeline-item">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">
+              Testing & Documentation (~5 hours)
+            </h3>
+            <p class="text-gray-600 mb-4">
+              Overall QA pass, final review, and consolidated documentation.
+            </p>
+            <ul class="list-disc list-inside text-gray-600 space-y-1">
+              <li>Full regression testing <strong>(2 hours)</strong></li>
+              <li>Cross-team code reviews <strong>(1 hour)</strong></li>
+              <li>Documentation finalization <strong>(1 hour)</strong></li>
+              <li>Post-release cleanup tasks <strong>(45 minutes)</strong></li>
+              <li>Performance metrics review <strong>(15 minutes)</strong></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Performance Requirements -->
+      <section id="requirements" class="mb-16">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6">Requirements</h2>
+        <div class="bg-white rounded-lg shadow-sm p-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h3 class="text-xl font-semibold text-gray-800 mb-4">Performance</h3>
+              <ul class="list-disc list-inside text-gray-600 space-y-2">
+                <li>Address suggestion: &lt; 300ms</li>
+                <li>Page load time: &lt; 2s</li>
+                <li>Form transitions: &lt; 100ms</li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-gray-800 mb-4">Security</h3>
+              <ul class="list-disc list-inside text-gray-600 space-y-2">
+                <li>HTTPS encryption</li>
+                <li>Input validation</li>
+                <li>Rate limiting</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    // Highlight active section in navigation
+    const navItems = document.querySelectorAll('.nav-item');
+    const sections = document.querySelectorAll('section');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop;
+        if (window.pageYOffset >= sectionTop - 60) {
+          current = section.getAttribute('id');
         }
+      });
 
-        menuButton.addEventListener('click', toggleSidebar);
-        closeSidebarButton.addEventListener('click', toggleSidebar);
-        sidebarOverlay.addEventListener('click', toggleSidebar);
+      navItems.forEach((item) => {
+        item.classList.remove('active');
+        if (item.getAttribute('href').slice(1) === current) {
+          item.classList.add('active');
+        }
+      });
+    });
 
-        // Close sidebar on navigation item click (mobile only)
-        navItems.forEach(item => {
-            item.addEventListener('click', () => {
-                if (window.innerWidth < 768) {
-                    toggleSidebar();
-                }
-            });
+    // Smooth scroll to sections
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth',
         });
-    </script>
+      });
+    });
+
+    // Sidebar Toggle
+    const menuButton = document.getElementById('menuButton');
+    const closeSidebarButton = document.getElementById('closeSidebar');
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('mainContent');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+    function toggleSidebar() {
+      sidebar.classList.toggle('active');
+      sidebarOverlay.classList.toggle('active');
+      document.body.classList.toggle('overflow-hidden');
+    }
+
+    menuButton.addEventListener('click', toggleSidebar);
+    closeSidebarButton.addEventListener('click', toggleSidebar);
+    sidebarOverlay.addEventListener('click', toggleSidebar);
+
+    // Close sidebar on navigation item click (mobile only)
+    navItems.forEach((item) => {
+      item.addEventListener('click', () => {
+        if (window.innerWidth < 768) {
+          toggleSidebar();
+        }
+      });
+    });
+  </script>
 </body>
 </html>
